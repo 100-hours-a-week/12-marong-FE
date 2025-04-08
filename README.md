@@ -1,2 +1,2 @@
-# https-github.com-100-hours-a-week-12_floppy-disk_fe
+# 12-marong-FE
 프론트
