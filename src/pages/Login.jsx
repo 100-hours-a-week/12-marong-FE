@@ -1,6 +1,7 @@
 import LogoImage from '../assets/logo.png';
 import KakaoLoginButton from '../components/KakaoLoginButton';
 import {useEffect, useState} from "react";
+import api from "../api/axios";
 
 export default function Login() {
   const code = new URL(window.location.href).searchParams.get("code");
@@ -11,19 +12,41 @@ export default function Login() {
     if (code) {
       setLoading(true)
 
-      // TODO: 로그인 API 호출
+      api.get("/auth/oauth/callback", {
+        params: {
+          provider: "kakao",
+          code: code,
+        },
+      })
+        .then(res => {
+          const data = res.data.data;
 
-      // REMOVE: 로그인 API 호출 후 화면 이동
-        setTimeout(() => {
-            setLoading(false)
-            window.location.href = "survey"
-        }, 2000)
+          // 로그인 성공 시 accessToken을 localStorage에 저장
+          const accessToken = data.jwt;
+          localStorage.setItem("accessToken", accessToken);
 
+          const hasCompletedSurvey = data.user.hasCompletedSurvey;
+
+          if (hasCompletedSurvey) {
+            // 설문조사를 완료한 경우 메인 페이지로 이동
+            window.location.href = "/main/home";
+          } else {
+            // 설문조사를 완료하지 않은 경우 설문조사 페이지로 이동
+            window.location.href = "/survey";
+          }
+
+        })
+        .catch(err => {
+          console.error(err)
+          alert("로그인에 실패했습니다. 다시 시도해 주세요.")
+          setLoading(false)
+        })
     }
   }, [code]);
 
   return (
     <div className="w-full max-w-sm flex flex-col items-center justify-center space-y-8">
+      {/* 로고 이미지 */}
       <div className="w-32 h-32 relative">
         <img src={LogoImage} alt="Logo Image" className="w-full h-full object-contain"/>
       </div>
@@ -36,6 +59,7 @@ export default function Login() {
       {/* 로그인 버튼 */}
       <KakaoLoginButton/>
 
+      {/* 로그인 정보 인증 중 로딩 */}
       {loading &&
         <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex flex-col items-center justify-center z-50">
           <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>

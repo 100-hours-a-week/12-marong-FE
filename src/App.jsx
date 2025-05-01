@@ -2,15 +2,24 @@ import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom
 import Login from './pages/Login';
 import Survey from './pages/Survey';
 import './App.css'
-import {useState} from "react";
+import MainLayout from "./layouts/MainLayout.jsx";
 
 function App() {
   return (
     <Router>
       <div className="min-h-dvh flex flex-col items-center justify-center p-4 bg-white">
         <Routes>
-          <Route path="/auth" element={<Login />} />
-          <Route path="/survey" element={<Survey />} />
+          <Route path="/" element={<Navigate to="/auth" replace/>}/>
+
+          <Route path="/auth" element={<Login/>}/>
+          <Route path="/survey" element={<Survey/>}/>
+
+          <Route path="/main" element={<MainLayout/>}>
+            <Route path="home" element={<div>Home</div>}/>
+            <Route path="manito" element={<div>Manito</div>}/>
+            <Route path="recommendation" element={<div>Recommendation</div>}/>
+            <Route path="profile" element={<div>Profile</div>}/>
+          </Route>
         </Routes>
       </div>
     </Router>
