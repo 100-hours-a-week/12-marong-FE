@@ -3,11 +3,12 @@ import Login from './pages/Login';
 import Survey from './pages/Survey';
 import './App.css'
 import MainLayout from "./layouts/MainLayout.jsx";
+import Feed from "./pages/Feed.jsx";
 
 function App() {
   return (
     <Router>
-      <div className="min-h-dvh flex flex-col items-center justify-center p-4 bg-white">
+      <div className="min-h-dvh flex flex-col items-center justify-center bg-white">
         <Routes>
           <Route path="/" element={<Navigate to="/auth" replace/>}/>
 
@@ -15,7 +16,7 @@ function App() {
           <Route path="/survey" element={<Survey/>}/>
 
           <Route path="/main" element={<MainLayout/>}>
-            <Route path="home" element={<div>Home</div>}/>
+            <Route path="home" element={<Feed />}/>
             <Route path="manito" element={<div>Manito</div>}/>
             <Route path="recommendation" element={<div>Recommendation</div>}/>
             <Route path="profile" element={<div>Profile</div>}/>

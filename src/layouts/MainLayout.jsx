@@ -3,7 +3,7 @@ import BottomNavigation from "../components/BottomNavigation"
 
 export default function MainLayout() {
   return (
-    <div className="min-h-screen bg-white pb-16">
+    <div className="w-full max-w-sm min-h-dvh pb-20">
       <Outlet />
       <BottomNavigation />
     </div>
