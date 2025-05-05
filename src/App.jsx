@@ -1,13 +1,13 @@
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import Login from './pages/Login';
-import Survey from './pages/Survey';
+import Survey from './pages/survey/Survey.jsx';
 import './App.css'
 import MainLayout from "./layouts/MainLayout.jsx";
 
 function App() {
   return (
     <Router>
-      <div className="min-h-dvh flex flex-col items-center justify-center p-4 bg-white">
+      <div className="min-h-dvh flex flex-col items-center justify-center bg-white">
         <Routes>
           <Route path="/" element={<Navigate to="/auth" replace/>}/>
 
