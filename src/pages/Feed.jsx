@@ -35,6 +35,24 @@ function Feed() {
     )
   }
 
+  const addPost = () => {
+    api.post("feeds", {
+      missionId: 1,
+      manittoName: "마니또 1",
+      content: "피드 추가 테스트 내용",
+    }, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log("Error:", err)
+      })
+  }
+
   return (
     <div className="flex flex-col px-4">
       {/* 헤더 */}
@@ -47,6 +65,17 @@ function Feed() {
         ))}
       </div>
 
+      {/* 피드 작성 버튼 */}
+      <div className="fixed w-full max-w-sm bottom-0 z-30 mb-16">
+        <div className="flex justify-end p-6">
+          <button
+            className="bg-brand-pink text-white rounded-full shadow-lg h-12 w-12 text-2xl"
+            onClick={() => addPost()}
+          >
+            +
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
