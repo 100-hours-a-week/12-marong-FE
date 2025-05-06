@@ -1,11 +1,16 @@
 import { Outlet } from "react-router-dom"
 import BottomNavigation from "../components/BottomNavigation"
+import {GroupProvider} from "../context/GroupContext.jsx";
+import MainAppBar from "../components/MainAppBar.jsx";
 
 export default function MainLayout() {
   return (
-    <div className="w-full max-w-sm min-h-dvh pb-20">
-      <Outlet />
-      <BottomNavigation />
-    </div>
+    <GroupProvider>
+      <div className="w-full max-w-sm min-h-dvh flex flex-col pb-16 pt-14">
+        <MainAppBar />
+        <Outlet />
+        <BottomNavigation />
+      </div>
+    </GroupProvider>
   )
 }
