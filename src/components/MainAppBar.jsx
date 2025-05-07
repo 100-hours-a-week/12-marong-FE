@@ -2,8 +2,10 @@
 
 import {useEffect, useState} from "react";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react"
+import {useGroup} from "../context/GroupContext.jsx";
 
-function FeedHeader({selectedGroup, setSelectedGroup}) {
+function MainAppBar() {
+  const {selectedGroup, setSelectedGroup} = useGroup()
   const [groups, setGroups] = useState([
     "그룹1", "그룹2", "그룹3", "그룹4", "그룹5", "그룹6", "그룹7", "그룹8", "그룹9", "그룹10"
   ])
@@ -13,7 +15,7 @@ function FeedHeader({selectedGroup, setSelectedGroup}) {
   }, [selectedGroup])
 
   return (
-    <div className="flex flex-row justify-between h-14 px-4 items-center border-b">
+    <div className="w-full max-w-sm mx-auto fixed top-0 flex justify-between h-14 px-4 items-center border-b bg-white">
       {/* 그룹 선택 드롭박스 */}
       <Menu as="div" className="relative inline-block text-left">
         <div>
@@ -44,4 +46,4 @@ function FeedHeader({selectedGroup, setSelectedGroup}) {
   )
 }
 
-export default FeedHeader
+export default MainAppBar

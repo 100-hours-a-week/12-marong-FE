@@ -8,6 +8,22 @@ export default function Login() {
 
   const [loading, setLoading] = useState(false)
 
+  // DEBUG: 테스트 계정 로그인 && 로고 이미지 클릭 이벤트 제거 필요
+  const testLogin = () => {
+    api.get("test/token/2")
+      .then(res => {
+        const data = res.data.data;
+
+        console.log(data)
+
+        // 로그인 성공 시 accessToken을 localStorage에 저장
+        const accessToken = data.jwt;
+        localStorage.setItem("accessToken", accessToken);
+
+        window.location.href = "/main/home";
+      })
+  }
+
   useEffect(() => {
     if (code) {
       setLoading(true)
@@ -48,7 +64,7 @@ export default function Login() {
     <div className="w-full max-w-sm flex flex-col items-center justify-center space-y-8">
       {/* 로고 이미지 */}
       <div className="w-32 h-32 relative">
-        <img src={LogoImage} alt="Logo Image" className="w-full h-full object-contain"/>
+        <img src={LogoImage} alt="Logo Image" className="w-full h-full object-contain" onClick={testLogin}/>
       </div>
 
       <div className="text-center space-y-2">
