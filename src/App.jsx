@@ -5,6 +5,7 @@ import './App.css'
 import MainLayout from "./layouts/MainLayout.jsx";
 import Feed from "./pages/Feed.jsx";
 import Manitto from "./pages/Manitto.jsx";
+import Recommendation from './pages/Recommendation.jsx';
 
 function App() {
   return (
@@ -17,9 +18,9 @@ function App() {
           <Route path="/survey" element={<Survey/>}/>
 
           <Route path="/main" element={<MainLayout/>}>
-            <Route path="home" element={<Feed />}/>
-            <Route path="manito" element={<Manitto />}/>
-            <Route path="recommendation" element={<div>Recommendation</div>}/>
+            <Route path="home" element={<Feed/>}/>
+            <Route path="manito" element={<Manitto/>}/>
+            <Route path="recommendation" element={<Recommendation/>}/>
             <Route path="profile" element={<div>Profile</div>}/>
           </Route>
         </Routes>
