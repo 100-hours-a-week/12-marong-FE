@@ -1,7 +1,7 @@
 import LogoImage from '../assets/logo.png';
 import KakaoLoginButton from '../components/KakaoLoginButton';
 import {useEffect, useState} from "react";
-import api from "../api/axios";
+import axios from 'axios';
 
 export default function Login() {
   const code = new URL(window.location.href).searchParams.get("code");
@@ -10,7 +10,9 @@ export default function Login() {
 
   // DEBUG: 테스트 계정 로그인 && 로고 이미지 클릭 이벤트 제거 필요
   const testLogin = () => {
-    api.get("test/token/2")
+    axios.get("test/token/2", {
+      baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
+    })
       .then(res => {
         const data = res.data.data;
 
@@ -28,7 +30,8 @@ export default function Login() {
     if (code) {
       setLoading(true)
 
-      api.get("/auth/oauth/callback", {
+      axios.get("/auth/oauth/callback", {
+        baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
         params: {
           provider: "kakao",
           code: code,
