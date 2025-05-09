@@ -10,7 +10,7 @@ export default function Login() {
 
   // DEBUG: 테스트 계정 로그인 && 로고 이미지 클릭 이벤트 제거 필요
   const testLogin = () => {
-    api.get("test/token/2")
+    api.get("test/token/1")
       .then(res => {
         const data = res.data.data;
 
