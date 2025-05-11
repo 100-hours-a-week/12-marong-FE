@@ -1,6 +1,7 @@
 "use client"
 
 import api from "../api/axios.js"
+import Divider from "./Divider.jsx";
 
 function FeedCard({feed, setLike}) {
 
@@ -18,18 +19,27 @@ function FeedCard({feed, setLike}) {
   }
 
   return (
-    <div className="flex flex-col border-b">
+    <div className="flex flex-col border-b max-w-xl">
       {/* 게시물 헤더 */}
-      <div className="flex justify-between items-center px-4 py-2">
+      <div className="flex items-center px-2 py-2 gap-4">
+        <img
+          src="https://placehold.co/600/pink/white"
+          alt="프로필 이미지"
+          className="w-12 h-12 rounded-full"
+        />
+
         <div className="flex flex-col gap-1 items-start">
-          <h3 className="font-bold text-sm">{feed.manittoName}</h3>
-          <p className="text-xs text-gray-500">{feed.missionTitle}</p>
+          <h3 className="text-lg font-bold font-marong">{feed.manittoName}</h3>
+          <p className="text-gray-500 font-marong">{feed.missionTitle}</p>
         </div>
       </div>
 
+      <Divider />
+
       {/* 게시물 이미지 */}
-      <div className="flex justify-center">
-        <img src={feed.imageUrl} alt="Feed" className="w-full h-auto rounded-lg"/>
+      <div className="flex justify-start mt-2">
+        {/*<img src={feed.imageUrl} alt="Feed" className="w-full h-auto rounded-lg"/>*/}
+        <img src="https://placehold.co/600" alt="Feed" className="w-full h-auto rounded-lg"/>
       </div>
 
       {/* 게시물 내용 */}

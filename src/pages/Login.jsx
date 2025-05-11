@@ -64,15 +64,15 @@ export default function Login() {
   }, [code]);
 
   return (
-    <div className="w-full max-w-sm flex flex-col items-center justify-center space-y-8">
+    <div className="w-full flex-1 flex flex-col items-center justify-center gap-8">
       {/* 로고 이미지 */}
       <div className="w-32 h-32 relative">
         <img src={LogoImage} alt="Logo Image" className="w-full h-full object-contain" onClick={testLogin}/>
       </div>
 
       <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold text-gray-800">환영합니다</h1>
-        <p className="text-gray-600">서비스를 이용하시려면 로그인해 주세요</p>
+        <h1 className="text-3xl font-bold text-gray-800">환영합니다</h1>
+        <p className="text-xl text-gray-600">서비스를 이용하시려면 로그인해 주세요</p>
       </div>
 
       {/* 로그인 버튼 */}

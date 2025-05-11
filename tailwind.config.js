@@ -6,7 +6,11 @@ export default {
       colors: {
         brand: {
           pink: "#F9A8B4",
+          background: "#FFF6F6",
         }
+      },
+      fontFamily: {
+        marong: ["marong", "sans-serif"],
       }
     },
   },
