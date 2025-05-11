@@ -10,7 +10,7 @@ export default function Login() {
 
   // DEBUG: 테스트 계정 로그인 && 로고 이미지 클릭 이벤트 제거 필요
   const testLogin = () => {
-    axios.get("test/token/2", {
+    axios.get("test/token/1", {
       baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
     })
       .then(res => {
