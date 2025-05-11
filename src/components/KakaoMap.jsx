@@ -1,11 +1,32 @@
 import {useEffect, useRef} from "react";
+import {TbLocation} from "react-icons/tb";
 import useLocation from "../context/UseLocation.jsx";
+import PlaceCard from "./PlaceCard.jsx";
 
 const {kakao} = window;
 
-function KakaoMap() {
+function KakaoMap({places}) {
   const mapRef = useRef(null)
-  const location = useLocation()
+  const {location, getCurrentLocation} = useLocation()
+
+  const setCenter = (place) => {
+    const map = mapRef.current
+    const latLng = new kakao.maps.LatLng(place.latitude, place.longitude)
+    map.panTo(latLng)
+  }
+
+  const infoWindow = new kakao.maps.InfoWindow({zIndex: 1})
+  const displayInfowindow = (map, place, title) => {
+    const marker = new kakao.maps.Marker({
+      map: map,
+      position: new kakao.maps.LatLng(place.latitude, place.longitude),
+    })
+
+    kakao.maps.event.addListener(marker, 'click', function () {
+      infoWindow.setContent('<div style="padding:5px;font-size:12px;">' + title + '</div>')
+      infoWindow.open(map, marker)
+    })
+  }
 
   useEffect(() => {
     if (!location) return
@@ -21,14 +42,35 @@ function KakaoMap() {
       mapRef.current = map
 
       // 현 위치 마커 생성
-      new kakao.maps.Marker({
-        position: new kakao.maps.LatLng(location.latitude, location.longitude),
-      }).setMap(map)
+      displayInfowindow(map, location, '현재 위치')
+
+      places.forEach((place) => {
+        displayInfowindow(map, place, place.name)
+      })
     })
-  }, [location])
+  }, [location, places])
 
   return (
-    <div id="map" className="flex flex-grow w-full"></div>
+    <div className="flex flex-col flex-grow w-full">
+      <div className="flex flex-0 flex-row">
+        <PlaceCard place={places[0]} onClick={() => setCenter(places[0])}/>
+
+        <PlaceCard place={places[1]} onClick={() => setCenter(places[1])}/>
+      </div>
+
+      <div className="flex flex-grow w-full">
+        <div id="map" className="w-full h-full"></div>
+      </div>
+
+      <div className="fixed max-w-sm w-full bottom-0 z-30 mb-16 flex justify-end p-4">
+        <div className="justify-end border-2 bg-white shadow-lg rounded-full p-3">
+          <TbLocation
+            size="24"
+            onClick={getCurrentLocation}
+          />
+        </div>
+      </div>
+    </div>
   )
 }
 

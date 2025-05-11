@@ -1,30 +1,32 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import api from '../api/axios.js';
 import KakaoMap from "../components/KakaoMap.jsx";
+import LoadingSpinner from "../components/LoadingSpinner.jsx";
 
 function Recommendation() {
+  const [places, setPlaces] = useState([])
+
   useEffect(() => {
     api.get('/recommendations/places')
       .then((res) => {
-        console.log(res.data);
+        const data = res.data.data
+        setPlaces([...data.restaurants, ...data.cafes])
       })
       .catch((err) => {
         console.log(err);
-      });
-  }, []);
+      })
+  }, [])
+
+  useEffect(() => {
+    console.log("Places: ", places)
+  }, [places])
 
   return (
-    <div className="flex flex-col flex-grow px-4">
-      {/*<div id="map" className="w-full h-96"></div>*/}
-      <div className="w-full flex flex-grow">
-        <KakaoMap />
+    <div className="flex flex-col flex-grow">
+      <div className="flex flex-grow">
+        {places.length !== 0 ?
+          <KakaoMap places={places}/> : <LoadingSpinner/>}
       </div>
-
-      {/* 장소 정보 */}
-      <div className="flex flex-row">
-
-      </div>
-
     </div>
   )
 }

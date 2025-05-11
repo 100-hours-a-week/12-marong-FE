@@ -2,10 +2,10 @@
 
 import {useEffect, useState} from "react";
 
-function  useLocation() {
+function useLocation() {
   const [location, setLocation] = useState(null)
 
-  useEffect(() => {
+  const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, error)
     }
@@ -23,10 +23,13 @@ function  useLocation() {
         longitude: 127.107058,
       })
     }
+  }
 
+  useEffect(() => {
+    getCurrentLocation()
   }, [])
 
-  return location;
+  return {location, getCurrentLocation};
 }
 
 export default useLocation;
