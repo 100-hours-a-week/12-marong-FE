@@ -19,7 +19,7 @@ function MainAppBar() {
       {/* 그룹 선택 드롭박스 */}
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <MenuButton className="inline-flex w-full py-2 font-bold text-2xl">
+          <MenuButton className="inline-flex w-full py-2 font-bold text-xl">
             {selectedGroup ? selectedGroup : "그룹 선택"}
           </MenuButton>
         </div>

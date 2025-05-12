@@ -1,7 +1,8 @@
 "use client"
 
 import api from "../api/axios.js"
-import Divider from "./Divider.jsx";
+import {IoIosMore} from "react-icons/io";
+import joy from "../assets/joy.jpg"
 
 function FeedCard({feed, setLike}) {
 
@@ -21,30 +22,32 @@ function FeedCard({feed, setLike}) {
   return (
     <div className="flex flex-col border-b max-w-xl">
       {/* 게시물 헤더 */}
-      <div className="flex items-center px-2 py-2 gap-4">
-        <img
-          src="https://placehold.co/600/pink/white"
-          alt="프로필 이미지"
-          className="w-12 h-12 rounded-full"
-        />
+      <div className="flex flex-row justify-between items-center ">
+        <div className="flex items-center px-2 py-2 gap-3">
+          <img
+            src={joy}
+            alt="프로필 이미지"
+            className="w-10 h-10 rounded-full"
+          />
 
-        <div className="flex flex-col gap-1 items-start">
-          <h3 className="text-lg font-bold font-marong">{feed.manittoName}</h3>
-          <p className="text-gray-500 font-marong">{feed.missionTitle}</p>
+          <div className="flex flex-col items-start">
+            <h3 className="font-bold font-marong">{feed.manittoName}</h3>
+            <p className="text-sm text-gray-500 font-marong">{feed.missionTitle}</p>
+          </div>
         </div>
+
+        <IoIosMore size={24}/>
       </div>
 
-      <Divider />
-
       {/* 게시물 이미지 */}
-      <div className="flex justify-start mt-2">
+      <div className="flex justify-start">
         {/*<img src={feed.imageUrl} alt="Feed" className="w-full h-auto rounded-lg"/>*/}
-        <img src="https://placehold.co/600" alt="Feed" className="w-full h-auto rounded-lg"/>
+        <img src={feed.imageUrl} alt="Feed" className="w-full h-auto rounded-lg"/>
       </div>
 
       {/* 게시물 내용 */}
-      <div className="flex justify-between px-4 py-4">
-        <div className="flex flex-col gap-2">
+      <div className="flex justify-between px-4 pt-4 pb-2">
+        <div className="flex flex-col gap-1">
           <p className="text-sm font-bold text-start">{feed.author}</p>
           <p className="text-sm text-gray-700 text-start">{feed.content}</p>
         </div>
