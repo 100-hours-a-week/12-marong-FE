@@ -39,9 +39,7 @@ function Recommendation() {
   return (
     <div className="flex flex-col flex-grow">
       <div className="flex flex-grow">
-        {places.length !== 0 &&
-          <KakaoMap places={places}/>
-        }
+        <KakaoMap places={places}/>
       </div>
     </div>
   )
