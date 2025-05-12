@@ -1,13 +1,23 @@
 import {useEffect, useState} from 'react';
-import api from '../api/axios.js';
+import api from '../api/place.jsx';
+import backend from '../api/backend.jsx';
 import KakaoMap from "../components/KakaoMap.jsx";
-import LoadingSpinner from "../components/LoadingSpinner.jsx";
+import {useLocation} from "react-router-dom";
 
 function Recommendation() {
   const [places, setPlaces] = useState([])
+  const {location} = useLocation()
 
   useEffect(() => {
-    api.get('/recommendations/places')
+    const userId = localStorage.getItem('userId');
+
+    api.post('/recommendations/places', {
+      "me_id": userId,
+      "me_lat": location.latitude,
+      "me_lng": location.longitude,
+      "manitto_lat": location.latitude,
+      "manitto_lng": location.longitude,
+    })
       .then((res) => {
         const data = res.data.data
         setPlaces([...data.restaurants, ...data.cafes])
