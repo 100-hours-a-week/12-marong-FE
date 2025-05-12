@@ -92,7 +92,7 @@ function SurveyFood({data, onUpdate, onPrev, onNext}) {
   }
 
   return (
-    <div className="w-full max-w-sm min-h-dvh flex flex-col items-start space-y-4 p-4">
+    <div className="w-full min-h-dvh flex flex-col items-start space-y-4 p-4">
       {/* 헤더 */}
       <SurveyHeader title="Q3. 나의 음식 취향 선택하기" description="자신의 음식 취향을 선택해 주세요.(최소 1개, 최대 3개)"/>
 

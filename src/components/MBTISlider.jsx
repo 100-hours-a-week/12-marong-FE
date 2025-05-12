@@ -39,12 +39,12 @@ function MBTISlider({title, name, leftLabel, rightLabel, value, onChange, revers
   return (
     <div className="flex flex-col items-start space-y-2">
       {/* 제목 */}
-      <div className="font-bold mb-2">{title}</div>
+      <div className="text-lg font-bold mb-2">{title}</div>
 
       {/* 라벨 */}
       <div className="flex w-full justify-between">
-        <div className="text-sm">{leftLabel}</div>
-        <div className="text-sm">{rightLabel}</div>
+        <div className="">{leftLabel}</div>
+        <div className="">{rightLabel}</div>
       </div>
 
       <div className="relative w-full h-3 bg-gray-100 items-center rounded-full justify-center">

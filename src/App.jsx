@@ -10,7 +10,7 @@ import Recommendation from './pages/Recommendation.jsx';
 function App() {
   return (
     <Router>
-      <div className="min-h-dvh flex flex-col items-center justify-center bg-white">
+      <div className="relative flex flex-col min-h-dvh max-w-2xl mx-auto font-marong">
         <Routes>
           <Route path="/" element={<Navigate to="/auth" replace/>}/>
 

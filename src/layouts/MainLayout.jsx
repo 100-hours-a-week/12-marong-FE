@@ -6,7 +6,7 @@ import MainAppBar from "../components/MainAppBar.jsx";
 export default function MainLayout() {
   return (
     <GroupProvider>
-      <div className="w-full max-w-sm min-h-dvh flex flex-col pb-16 pt-14">
+      <div className="w-full max-w-2xl min-h-dvh flex flex-col pb-16 pt-14">
         <MainAppBar />
         <Outlet />
         <BottomNavigation />

@@ -62,7 +62,7 @@ function KakaoMap({places}) {
         <div id="map" className="w-full h-full"></div>
       </div>
 
-      <div className="fixed max-w-sm w-full bottom-0 z-30 mb-16 flex justify-end p-4">
+      <div className="fixed max-w-2xl w-full bottom-0 z-30 mb-16 flex justify-end p-4">
         <div className="justify-end border-2 bg-white shadow-lg rounded-full p-3">
           <TbLocation
             size="24"

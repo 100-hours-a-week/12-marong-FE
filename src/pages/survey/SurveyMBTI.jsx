@@ -11,7 +11,7 @@ function SurveyMBTI({data, onUpdate, onNext}) {
   }
 
   return (
-    <div className="w-full max-w-sm min-h-dvh flex flex-col items-start space-y-4 p-4">
+    <div className="w-full min-h-dvh flex flex-col items-start space-y-4 p-4">
       {/* 헤더 */}
       <SurveyHeader title="Q1. 나를 표현하는 MBTI 선택하기" description="자신의 성격에 더 잘 맞는 쪽을 선택해 주세요."/>
 
@@ -65,7 +65,7 @@ function SurveyMBTI({data, onUpdate, onNext}) {
         <div className="flex gap-4">
           <button
             onClick={() => onNext()}
-            className="flex-1 py-4 bg-brand-pink text-black font-medium rounded-full"
+            className="flex-1 py-3 bg-brand-pink text-black font-medium rounded-full text-xl"
           >
             다음
           </button>
