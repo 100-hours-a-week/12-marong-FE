@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
-import api from "../api/axios.js";
+import api from "../api/backend.jsx";
 import FeedCard from "../components/FeedCard.jsx";
 import {useGroup} from "../context/GroupContext.jsx";
 import FloatingAddButton from "../components/FloatingAddButton.jsx";
 import InfiniteScroll from "react-infinite-scroll-component";
+import LoadingWheel from "../components/LoadingWheel.jsx";
 
 function Feed() {
   const {selectedGroup} = useGroup()
@@ -70,7 +71,7 @@ function Feed() {
         dataLength={feeds.length}
         next={getFeeds}
         hasMore={true}
-        loader={<h4 className="text-center">Loading...</h4>}
+        // loader={<div className="flex items-center justify-center py-4"><LoadingWheel /></div> }
       >
         {feeds.map((feed) => (
           <FeedCard feed={feed} setLike={toggleLike} key={feed.feedId}/>
