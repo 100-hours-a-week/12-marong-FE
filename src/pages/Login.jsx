@@ -21,6 +21,7 @@ export default function Login() {
         // 로그인 성공 시 accessToken을 localStorage에 저장
         const accessToken = data.jwt;
         localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
         localStorage.setItem("userId", data.userId);
 
         window.location.href = "/main/home";
@@ -72,9 +73,9 @@ export default function Login() {
         <img src={LogoImage} alt="Logo Image" className="w-full h-full object-contain" onClick={testLogin}/>
       </div>
 
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold text-gray-800">환영합니다</h1>
-        <p className="text-xl text-gray-600">서비스를 이용하시려면 로그인해 주세요</p>
+      <div className="text-center space-y-2 mb-20">
+        <h1 className="text-3xl font-bold text-gray-800">Marong</h1>
+        <p className="text-xl text-gray-600">카카오테크 부트캠프 마니또 서비스</p>
       </div>
 
       {/* 로그인 버튼 */}

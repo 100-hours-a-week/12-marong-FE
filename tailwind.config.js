@@ -5,12 +5,14 @@ export default {
     extend: {
       colors: {
         brand: {
-          pink: "#F9A8B4",
-          background: "#FFF6F6",
+          // Pink: F9A8B4
+          pink: "#967E76",
+          brown_dark: "#7C5B4F",
+          background: "#FFFFFF",
         }
       },
       fontFamily: {
-        marong: ["marong", "sans-serif"],
+        marong: ["marong"],
       }
     },
   },
