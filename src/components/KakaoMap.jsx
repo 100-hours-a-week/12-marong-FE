@@ -2,10 +2,11 @@ import {useEffect, useRef} from "react";
 import {TbLocation} from "react-icons/tb";
 import useLocation from "../context/UseLocation.jsx";
 import PlaceCard from "./PlaceCard.jsx";
+import LoadingWheel from "./LoadingWheel.jsx";
 
 const {kakao} = window;
 
-function KakaoMap({places}) {
+function KakaoMap({places, isLoading}) {
   const mapRef = useRef(null)
   const {location, getCurrentLocation} = useLocation()
 
@@ -53,9 +54,18 @@ function KakaoMap({places}) {
   return (
     <div className="flex flex-col flex-grow w-full">
       <div className="flex flex-0 flex-row">
-        <PlaceCard place={places[0]} onClick={() => setCenter(places[0])}/>
+        {isLoading && (
+          <div className="w-full flex items-center justify-center py-4">
+            <LoadingWheel/>
+          </div>
+        )}
+        {places.length !== 0 && (
+          <PlaceCard place={places[0]} onClick={() => setCenter(places[0])}/>
+        )}
 
-        <PlaceCard place={places[1]} onClick={() => setCenter(places[1])}/>
+        {places.length !== 0 && (
+          <PlaceCard place={places[0]} onClick={() => setCenter(places[1])}/>
+        )}
       </div>
 
       <div className="flex flex-grow w-full">

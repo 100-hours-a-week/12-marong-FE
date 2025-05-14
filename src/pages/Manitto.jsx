@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useGroup} from "../context/GroupContext.jsx";
-import api from "../api/axios.js";
+import api from "../api/backend.jsx";
 import LoadingSpinner from "../components/LoadingSpinner.jsx";
 import CountdownTimer from "../components/CountdownTimer.jsx";
 import Divider from "../components/Divider.jsx";

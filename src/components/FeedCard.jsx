@@ -1,6 +1,6 @@
 "use client"
 
-import api from "../api/axios.js"
+import api from "../api/backend.jsx"
 import {IoIosMore} from "react-icons/io";
 import joy from "../assets/joy.jpg"
 
