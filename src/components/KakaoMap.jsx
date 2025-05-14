@@ -6,7 +6,7 @@ import LoadingWheel from "./LoadingWheel.jsx";
 
 const {kakao} = window;
 
-function KakaoMap({places}) {
+function KakaoMap({places, isLoading}) {
   const mapRef = useRef(null)
   const {location, getCurrentLocation} = useLocation()
 
@@ -54,18 +54,17 @@ function KakaoMap({places}) {
   return (
     <div className="flex flex-col flex-grow w-full">
       <div className="flex flex-0 flex-row">
+        {isLoading && (
+          <div className="w-full flex items-center justify-center py-4">
+            <LoadingWheel/>
+          </div>
+        )}
         {places.length !== 0 && (
           <PlaceCard place={places[0]} onClick={() => setCenter(places[0])}/>
         )}
 
         {places.length !== 0 && (
           <PlaceCard place={places[0]} onClick={() => setCenter(places[1])}/>
-        )}
-
-        {places.length === 0 && (
-          <div className="w-full flex items-center justify-center py-4">
-            <LoadingWheel/>
-          </div>
         )}
       </div>
 

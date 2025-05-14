@@ -6,6 +6,7 @@ import useLocation from "../context/UseLocation.jsx";
 function Recommendation() {
   const [places, setPlaces] = useState([])
   const {location} = useLocation()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -25,9 +26,11 @@ function Recommendation() {
           const data = res.data
           console.log("data: ", data.food_data[0], data.cafe_data[0])
           setPlaces([data.food_data[0], data.cafe_data[0]])
+          setIsLoading(false)
         })
         .catch((err) => {
           console.log(err);
+          setIsLoading(false)
         })
     }
   }, [location])
@@ -39,7 +42,7 @@ function Recommendation() {
   return (
     <div className="flex flex-col flex-grow">
       <div className="flex flex-grow">
-        <KakaoMap places={places}/>
+        <KakaoMap places={places} isLoading={isLoading}/>
       </div>
     </div>
   )
