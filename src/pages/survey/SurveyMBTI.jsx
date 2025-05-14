@@ -65,7 +65,7 @@ function SurveyMBTI({data, onUpdate, onNext}) {
         <div className="flex gap-4">
           <button
             onClick={() => onNext()}
-            className="flex-1 py-3 bg-brand-pink text-black font-medium rounded-full text-xl"
+            className="flex-1 py-3 bg-brand-brown_dark text-black font-medium rounded-full text-xl"
           >
             다음
           </button>

@@ -53,7 +53,7 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
   }
 
   return (
-    <div className="w-full min-h-dvh flex flex-col items-start space-y-4 p-4">
+    <div className="w-full max-w-sm min-h-dvh flex flex-col items-start space-y-4 p-4">
       {/* 헤더 */}
       <SurveyHeader title="Q2. 나의 취미 선택하기" description="자신의 취미를 선택해 주세요.(최소 1개, 최대 3개)"/>
 
@@ -66,7 +66,7 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
           <button
             key={hobby}
             onClick={() => toggleHobby(hobby)}
-            className={`py-3 px-8 rounded-full text-center border-2 border-brand-pink transition ${selected.includes(hobby) ? "bg-brand-pink" : "bg-white"}`}
+            className={`py-3 px-8 rounded-full text-center border-2 border-brand-brown_dark transition ${selected.includes(hobby) ? "bg-brand-brown_dark" : "bg-white"}`}
           >
             {hobby}
           </button>
@@ -75,15 +75,13 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
         {!showAddForm && (
           <button
             onClick={() => setShowAddForm(true)}
-            className="py-3 px-8 rounded-full text-center transition bg-brand-pink"
+            className="py-3 px-8 rounded-full text-center transition bg-brand-brown_dark"
           >
             + 직접 입력
           </button>
         )}
-      </div>
 
-      {showAddForm && (
-        <div className="mt-4">
+        {showAddForm && (
           <div className="flex gap-2">
             <input
               ref={inputRef}
@@ -94,12 +92,12 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
               onBlur={addNewHobby}
               maxLength={10}
               placeholder="직접 입력"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-pink"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-brown_dark"
               autoFocus={true}
             />
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* 에러 메시지 */}
       {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
@@ -112,7 +110,7 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
         <div className="flex w-full gap-4">
           <button
             onClick={() => onPrev()}
-            className="flex-1 py-4 bg-brand-pink text-black font-medium rounded-full"
+            className="flex-1 py-4 bg-brand-brown_dark text-black font-medium rounded-full"
           >
             이전
           </button>
@@ -121,7 +119,7 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
         <div className="flex w-full gap-4">
           <button
             onClick={() => handleNext()}
-            className="flex-1 py-4 bg-brand-pink text-black font-medium rounded-full"
+            className="flex-1 py-4 bg-brand-brown_dark text-black font-medium rounded-full"
           >
             다음
           </button>
