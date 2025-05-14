@@ -20,9 +20,9 @@ export default function BottomNavigation() {
           <Link
             key={item.path}
             to={item.path}
-            className={`flex flex-col items-center py-2 px-4 ${isActive ? "text-pink-500" : "text-gray-500"}`}
+            className={`flex flex-col items-center py-2 px-4 ${isActive ? "text-brand-pink" : "text-gray-500"}`}
           >
-            <item.icon size={24} className={isActive ? "fill-pink-500" : ""} />
+            <item.icon size={24} className={isActive ? "fill-brand-pink" : ""} />
             <span className="text-xs mt-1">{item.label}</span>
           </Link>
         )
