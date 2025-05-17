@@ -3,6 +3,7 @@
 import {useEffect, useState} from "react";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react"
 import {useGroup} from "../context/GroupContext.jsx";
+import Logo from "../assets/logo.png";
 
 function MainAppBar() {
   const {selectedGroup, setSelectedGroup} = useGroup()
@@ -15,7 +16,15 @@ function MainAppBar() {
   }, [selectedGroup])
 
   return (
-    <div className="w-full max-w-2xl mx-auto fixed top-0 flex justify-between h-14 px-4 items-center border-b bg-white">
+    <div className="sticky w-full mx-auto top-0 flex h-14 px-4 items-center border-b bg-white gap-3">
+      {/* 로고 */}
+      <img
+        src={Logo}
+        alt="Logo"
+        className="w-8 h-8"
+      />
+
+
       {/* 그룹 선택 드롭박스 */}
       <Menu as="div" className="relative inline-block text-left">
         <div>

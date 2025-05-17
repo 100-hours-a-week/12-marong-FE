@@ -4,7 +4,7 @@ function ManittoInfoCard({ manitto }) {
       <img
         src={manitto.profileImage ? manitto.profileImage : "https://placehold.co/600/pink/white"}
         alt="프로필 이미지"
-        className="w-16 h-16 rounded-full"
+        className="w-16 h-16 rounded-full object-cover"
       />
 
       <div className="font-bold text-start">{manitto.name}</div>

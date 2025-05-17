@@ -9,6 +9,10 @@ export default {
           pink: "#967E76",
           brown_dark: "#7C5B4F",
           background: "#FFFFFF",
+          brown_light: "#c7b199"
+        },
+        marong: {
+          brown_dark: "#8D5A2E"
         }
       },
       fontFamily: {

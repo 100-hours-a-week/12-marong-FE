@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useGroup} from "../context/GroupContext.jsx";
-import api from "../api/backend.jsx";
+import api from "../api/instance/backend.jsx";
 import LoadingSpinner from "../components/LoadingSpinner.jsx";
 import CountdownTimer from "../components/CountdownTimer.jsx";
 import Divider from "../components/Divider.jsx";
@@ -43,13 +43,16 @@ function Manitto() {
 
   }, []);
 
+  // 마니또 미션 추가
   const handleMissionAdd = () => {
     api.post("manitto/missions/assign")
       .then(res => {
         console.log("Mission added:", res.data)
+        window.location.reload()
       })
       .catch(err => {
         console.log("Error:", err)
+        alert(err.response.data.message)
       })
   }
 
@@ -85,7 +88,7 @@ function Manitto() {
     // 마니또 정보 조회 성공 시
     else {
       return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           {/* 마니또 공개 타이머 */}
           <div className="flex flex-col overflow-y-auto p-4 gap-2">
             <div className="font-bold text-start">다음 마니또 공개까지 남은 시간</div>

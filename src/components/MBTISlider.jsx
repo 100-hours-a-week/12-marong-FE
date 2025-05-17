@@ -50,9 +50,9 @@ function MBTISlider({title, name, leftLabel, rightLabel, value, onChange, revers
       <div className="relative w-full h-3 bg-gray-100 items-center rounded-full justify-center">
         {/* 게이지 */}
         <div className="relative h-3 bg-gray-100 rounded-full mb-2">
-          <div className="absolute h-full rounded-full bg-brand-pink" style={getFillStyle()}></div>
+          <div className="absolute h-full rounded-full bg-brand-brown_light" style={getFillStyle()}></div>
           <div
-            className="absolute w-3 h-3 bg-white border-2 border-brand-pink rounded-full -mt-0 transform -translate-x-1/2"
+            className="absolute w-3 h-3 bg-white border-2 border-brand-brown_light rounded-full -mt-0 transform -translate-x-1/2"
             style={{left: `${sliderValue}%`}}
           ></div>
         </div>

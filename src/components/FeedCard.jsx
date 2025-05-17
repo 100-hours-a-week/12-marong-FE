@@ -1,14 +1,17 @@
 "use client"
 
-import api from "../api/backend.jsx"
+import api from "../api/instance/backend.jsx"
 import {IoIosMore} from "react-icons/io";
 import joy from "../assets/joy.jpg"
+import ElapsedTimeText from "./ElapsedTimeText.jsx";
+import defaultProfile from "../assets/default_profile.png"
+import {useEffect} from "react";
 
 function FeedCard({feed, setLike}) {
 
   function toggleLike() {
     api.post(`/feeds/${feed.feedId}/likes`, {
-      cancel: true
+      cancel: feed.isLiked,
     })
       .then(res => {
         console.log(res.data)
@@ -19,19 +22,23 @@ function FeedCard({feed, setLike}) {
       })
   }
 
+  useEffect(() => {
+    console.log("FeedCard: ", feed)
+  }, [feed.isLiked]);
+
   return (
-    <div className="flex flex-col border-b max-w-xl">
+    <div className="flex flex-col border-b">
       {/* 게시물 헤더 */}
-      <div className="flex flex-row justify-between items-center ">
-        <div className="flex items-center px-1 py-2 gap-3">
+      <div className="flex flex-row justify-between items-center">
+        <div className="flex items-center py-2 gap-3">
           <img
-            src={joy}
+            src={defaultProfile}
             alt="프로필 이미지"
             className="w-10 h-10 rounded-full"
           />
 
           <div className="flex flex-col items-start">
-            <h3 className="text-sm font-bold">{feed.manittoName}</h3>
+            <h3 className="text-sm font-bold">{feed.author} -> {feed.manittoName}</h3>
             <p className="text-xs text-gray-500">{feed.missionTitle}</p>
           </div>
         </div>
@@ -41,22 +48,22 @@ function FeedCard({feed, setLike}) {
 
       {/* 게시물 이미지 */}
       <div className="flex justify-start">
-        {/*<img src={feed.imageUrl} alt="Feed" className="w-full h-auto rounded-lg"/>*/}
-        <img src={feed.imageUrl} alt="Feed" className="w-full h-auto rounded-lg"/>
+        {feed.imageUrl !== null && (
+          <img src={feed.imageUrl} alt="Feed" className="w-full h-auto rounded-lg"/>
+        )}
       </div>
 
       {/* 게시물 내용 */}
       <div className="flex justify-between ps-2 pt-4 pb-2">
-        <div className="flex flex-col gap-1">
-          <p className="text-xs font-bold text-start">{feed.author}</p>
-          <p className="text-xs text-gray-700 text-start">{feed.content}</p>
+        <div className="flex flex-col gap-1 pe-4">
+          {/*<p className="text-xs font-bold text-start">{feed.author}</p>*/}
+          <p className="text-xs text-gray-700 text-start break-keep">{feed.content}</p>
         </div>
 
-        <div className="ps-4">
+        <div className="ps-4 pe-2">
           {/* 좋아요 아이콘 */}
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1}
+          <svg xmlns="http://www.w3.org/2000/svg" fill={feed.isLiked ? "#FF6B6B" : "none"} viewBox="0 0 24 24" strokeWidth={1}
                stroke="currentColor"
-               fill={feed.isLiked ? "#FF6B6B" : "none"}
                onClick={toggleLike}
                className="size-6">
             <path strokeLinecap="round" strokeLinejoin="round"
@@ -66,7 +73,7 @@ function FeedCard({feed, setLike}) {
       </div>
 
       {/* 게시글 생성 일자 */}
-      <p className="text-xs text-gray-500 px-2 pb-4 text-start">{feed.createdAt}</p>
+      <ElapsedTimeText className="text-xs text-gray-500 px-2 pb-4 text-start" createdDate={feed.createdAt}/>
 
     </div>
   )

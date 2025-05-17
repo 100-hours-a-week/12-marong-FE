@@ -66,7 +66,7 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
           <button
             key={hobby}
             onClick={() => toggleHobby(hobby)}
-            className={`py-3 px-8 rounded-full text-center border-2 border-brand-brown_dark transition ${selected.includes(hobby) ? "bg-brand-brown_dark" : "bg-white"}`}
+            className={`py-3 px-8 rounded-full text-center border-2 border-brand-brown_light transition ${selected.includes(hobby) ? "bg-brand-brown_light" : "bg-white"}`}
           >
             {hobby}
           </button>
@@ -75,7 +75,7 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
         {!showAddForm && (
           <button
             onClick={() => setShowAddForm(true)}
-            className="py-3 px-8 rounded-full text-center transition bg-brand-brown_dark"
+            className="py-3 px-8 rounded-full text-center transition bg-brand-brown_light"
           >
             + 직접 입력
           </button>
@@ -92,7 +92,7 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
               onBlur={addNewHobby}
               maxLength={10}
               placeholder="직접 입력"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-brown_dark"
+              className="flex-1 px-4 py-3 border w-full border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-brown_light"
               autoFocus={true}
             />
           </div>
@@ -110,7 +110,7 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
         <div className="flex w-full gap-4">
           <button
             onClick={() => onPrev()}
-            className="flex-1 py-4 bg-brand-brown_dark text-black font-medium rounded-full"
+            className="flex-1 py-4 bg-brand-brown_light text-black font-medium rounded-full"
           >
             이전
           </button>
@@ -119,7 +119,7 @@ function SurveyHobby({data, onUpdate, onPrev, onNext}) {
         <div className="flex w-full gap-4">
           <button
             onClick={() => handleNext()}
-            className="flex-1 py-4 bg-brand-brown_dark text-black font-medium rounded-full"
+            className="flex-1 py-4 bg-brand-brown_light text-black font-medium rounded-full"
           >
             다음
           </button>

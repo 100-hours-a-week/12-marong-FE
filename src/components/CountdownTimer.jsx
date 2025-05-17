@@ -33,7 +33,7 @@ function CountdownTimer({initialTime}) {
   }, [timeLeft]);
 
   return (
-    <div className="text-[2.5rem] font-bold text-center text-red-600">
+    <div className="text-[2.5rem] font-bold text-center text-[#3d2720]">
       {timeLeft > 0
         ? `${formatSecondsToTime(timeLeft)}`
         : "00:00:00"
