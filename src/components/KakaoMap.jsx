@@ -52,7 +52,7 @@ function KakaoMap({places, isLoading}) {
   }, [location, places])
 
   return (
-    <div className="flex flex-col flex-grow w-full">
+    <div className="flex flex-col h-full w-full">
       <div className="flex flex-0 flex-row">
         {isLoading && (
           <div className="w-full flex items-center justify-center py-4">
@@ -72,7 +72,7 @@ function KakaoMap({places, isLoading}) {
         <div id="map" className="w-full h-full"></div>
       </div>
 
-      <div className="fixed max-w-2xl w-full bottom-0 z-30 mb-16 flex justify-end p-4">
+      <div className="fixed max-w-sm w-full bottom-0 z-30 mb-16 flex justify-end p-4">
         <div className="justify-end border-2 bg-white shadow-lg rounded-full p-3">
           <TbLocation
             size="24"

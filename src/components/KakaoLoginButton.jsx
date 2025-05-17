@@ -1,7 +1,6 @@
 "use client"
 
 import KakaoLoginLargeNarrow from "../assets/kakao_login_large_narrow.png"
-import KakaoLoginMediumNarrow from "../assets/kakao_login_medium_narrow.png"
 
 function KakaoLoginButton() {
   const REST_API_KEY = import.meta.env.VITE_KAKAO_CLIENT_REST_API_KEY;
@@ -15,9 +14,9 @@ function KakaoLoginButton() {
 
   return (
     <img
-      src={KakaoLoginMediumNarrow}
+      src={KakaoLoginLargeNarrow}
       alt="카카오 로그인 버튼"
-      className="h-auto cursor-pointer"
+      className="h-auto cursor-pointer px-16"
       onClick={handleKakaoLogin}
     />
   )

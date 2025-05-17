@@ -4,7 +4,7 @@ import {useEffect, useState} from "react"
 import SurveyMBTI from "./SurveyMBTI.jsx";
 import SurveyHobby from "./SurveyHobby.jsx";
 import SurveyFood from "./SurveyFood.jsx";
-import api from "../../api/backend.jsx";
+import api from "../../api/instance/backend.jsx";
 
 export default function Survey() {
   const [step, setStep] = useState(1)

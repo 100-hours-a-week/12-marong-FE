@@ -13,7 +13,7 @@ export default function BottomNavigation() {
   ]
 
   return (
-    <div className="w-full max-w-2xl mx-auto fixed bottom-0 bg-white border-t border-gray-200 flex justify-around items-center h-16">
+    <div className="sticky w-full mx-auto  bottom-0 bg-white border-t border-gray-200 flex justify-around items-center h-16">
       {navItems.map((item) => {
         const isActive = currentPath === item.path
         return (
@@ -22,7 +22,7 @@ export default function BottomNavigation() {
             to={item.path}
             className={`flex flex-col items-center py-2 px-4 ${isActive ? "text-brand-pink" : "text-gray-500"}`}
           >
-            <item.icon size={24} className={isActive ? "fill-brand-pink" : ""} />
+            <item.icon size={24} className={isActive ? "fill-brand-pink stroke-brand-pink" : "stroke-brand-pink"} />
             <span className="text-xs mt-1">{item.label}</span>
           </Link>
         )

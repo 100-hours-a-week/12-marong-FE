@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import api from "../api/backend.jsx";
+import api from "../api/instance/backend.jsx";
 import FeedCard from "../components/FeedCard.jsx";
 import {useGroup} from "../context/GroupContext.jsx";
 import FloatingAddButton from "../components/FloatingAddButton.jsx";
@@ -19,11 +19,7 @@ function Feed() {
     })
       .then(res => {
         console.log(res.data.data)
-        const feedsWithLike = res.data.data.feeds.map((feed) => ({
-          ...feed, isLiked: true
-        }))
-
-        setFeeds(feeds.concat(feedsWithLike))
+        setFeeds(feeds.concat(res.data.data.feeds))
 
         setPage(page + 1)
       })
@@ -37,12 +33,14 @@ function Feed() {
     getFeeds()
   }, [])
 
-  const toggleLike = (feedId) => {
-    setFeeds((prevFeeds) =>
-      prevFeeds.map((feed) =>
-        feed.id === feedId ? {...feed, isLiked: true} : feed
+  function toggleLike(feedId) {
+    setFeeds(prevFeeds =>
+      prevFeeds.map(feed =>
+        feed.feedId === feedId
+          ? { ...feed, isLiked: !feed.isLiked }
+          : feed
       )
-    )
+    );
   }
 
   const addPost = () => {
@@ -64,22 +62,21 @@ function Feed() {
   }
 
   return (
-    <div className="flex flex-col px-4">
-      {/* 피드 목록 */}
-      <InfiniteScroll
-        className="flex-1 overflow-y-auto"
-        dataLength={feeds.length}
-        next={getFeeds}
-        hasMore={true}
-        // loader={<div className="flex items-center justify-center py-4"><LoadingWheel /></div> }
-      >
-        {feeds.map((feed) => (
-          <FeedCard feed={feed} setLike={toggleLike} key={feed.feedId}/>
-        ))}
-      </InfiniteScroll>
-
-      {/*<div className="flex-1 overflow-y-auto">*/}
-
+    <div className="">
+      <div className="flex flex-col px-4">
+        {/* 피드 목록 */}
+        <InfiniteScroll
+          className="flex-1 overflow-y-auto"
+          dataLength={feeds.length}
+          next={getFeeds}
+          hasMore={true}
+          // loader={<div className="flex items-center justify-center py-4"><LoadingWheel /></div> }
+        >
+          {feeds.map((feed) => (
+            <FeedCard feed={feed} setLike={toggleLike} key={feed.feedId}/>
+          ))}
+        </InfiniteScroll>
+      </div>
 
       {/* 피드 작성 버튼 */}
       <FloatingAddButton onClick={addPost}/>

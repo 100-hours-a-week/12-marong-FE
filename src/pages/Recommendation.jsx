@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import api from '../api/place.jsx';
+import api from '../api/instance/backend.jsx';
 import KakaoMap from "../components/KakaoMap.jsx";
 import useLocation from "../context/UseLocation.jsx";
 
@@ -15,17 +15,11 @@ function Recommendation() {
 
     if (location) {
       console.log("Location: ", location)
-      api.post('/recommend/place', {
-        "me_id": userId,
-        "me_lat": location.latitude,
-        "me_lng": location.longitude,
-        "manitto_lat": location.latitude,
-        "manitto_lng": location.longitude,
-      })
+      api.get('recommendations/places')
         .then((res) => {
-          const data = res.data
-          console.log("data: ", data.food_data[0], data.cafe_data[0])
-          setPlaces([data.food_data[0], data.cafe_data[0]])
+          const data = res.data.data
+          console.log("data: ", data.restaurants[0], data.cafes[0])
+          setPlaces([data.restaurants[0], data.cafes[0]])
           setIsLoading(false)
         })
         .catch((err) => {
@@ -40,10 +34,8 @@ function Recommendation() {
   }, [places])
 
   return (
-    <div className="flex flex-col flex-grow">
-      <div className="flex flex-grow">
-        <KakaoMap places={places} isLoading={isLoading}/>
-      </div>
+    <div className="flex flex-1">
+      <KakaoMap places={places} isLoading={isLoading}/>
     </div>
   )
 }
