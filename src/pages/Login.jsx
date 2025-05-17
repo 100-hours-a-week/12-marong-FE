@@ -45,6 +45,7 @@ export default function Login() {
           // 로그인 성공 시 accessToken을 localStorage에 저장
           const accessToken = data.jwt;
           localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", data.refreshToken);
           localStorage.setItem("userId", data.user.userId);
 
           const hasCompletedSurvey = data.user.hasCompletedSurvey;
