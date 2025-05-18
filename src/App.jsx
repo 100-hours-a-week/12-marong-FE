@@ -27,7 +27,7 @@ function AppRoutes() {
   const shouldShowBottomBar = location.pathname.startsWith('/main')
 
   return (
-    <div className="relative flex flex-col max-w-sm min-w-96 min-h-dvh mx-auto items-center justify-center bg-white">
+    <div className="relative flex flex-col w-full max-w-sm min-h-dvh mx-auto items-center justify-center bg-white">
       {shouldShowTopBar && <MainAppBar/>}
 
       <div className="flex flex-1 w-full">

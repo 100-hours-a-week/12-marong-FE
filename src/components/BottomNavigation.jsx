@@ -13,7 +13,7 @@ export default function BottomNavigation() {
   ]
 
   return (
-    <div className="sticky w-full mx-auto  bottom-0 bg-white border-t border-gray-200 flex justify-around items-center h-16">
+    <div className="sticky w-full mx-auto  bottom-0 bg-white border-t border-gray-200 flex justify-around items-center h-16 z-20">
       {navItems.map((item) => {
         const isActive = currentPath === item.path
         return (
