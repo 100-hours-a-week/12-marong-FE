@@ -209,7 +209,7 @@ function SurveyFood({data, onUpdate, onPrev, onNext}) {
             onClick={() => handleNext()}
             className="flex-1 py-4 bg-brand-brown_light text-black font-medium rounded-full"
           >
-            다음
+            설문 종료
           </button>
         </div>
       </div>

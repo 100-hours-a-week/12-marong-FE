@@ -38,7 +38,7 @@ function FeedCard({feed, setLike}) {
           />
 
           <div className="flex flex-col items-start">
-            <h3 className="text-sm font-bold">{feed.author} -> {feed.manittoName}</h3>
+            <h3 className="text-sm font-bold">{feed.author} -> {feed.manitteeName}</h3>
             <p className="text-xs text-gray-500">{feed.missionTitle}</p>
           </div>
         </div>

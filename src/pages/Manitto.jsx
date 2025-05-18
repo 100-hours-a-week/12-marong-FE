@@ -20,7 +20,7 @@ function Manitto() {
     // 마니또 정보 조회
     api.get("manitto")
       .then(res => {
-        setManitto(res.data.data.manitto)
+        setManitto(res.data.data.manittee)
       })
       .catch(err => {
         console.log("Error:", err)

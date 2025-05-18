@@ -9,7 +9,10 @@ function ManittoInfoCard({ manitto }) {
         className="w-16 h-16 rounded-full object-cover"
       />
 
-      <div className="font-bold text-start">{manitto.name}</div>
+      <div className="flex flex-col gap-1">
+        <div className="font-bold text-start">당신의 비밀 임무 상대는?!</div>
+        <div className="font-bold text-start text-brand-brown_dark">{manitto.name}</div>
+      </div>
     </div>
   )
 }
