@@ -71,7 +71,7 @@ export default function Login() {
     <div className="w-full min-h-dvh flex flex-col items-center justify-center gap-8">
       {/* 로고 이미지 */}
       <div className="w-32 h-32 relative">
-        <img src={LogoImage} alt="Logo Image" className="w-full h-full object-contain" onClick={testLogin}/>
+        <img src={LogoImage} alt="Logo Image" className="w-full h-full object-contain" />
       </div>
 
       <div className="text-center space-y-2 mb-20">
