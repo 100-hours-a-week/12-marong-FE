@@ -8,6 +8,7 @@ import Recommendation from './pages/Recommendation.jsx';
 import MainAppBar from "./components/MainAppBar.jsx";
 import BottomNavigation from "./components/BottomNavigation.jsx";
 import {GroupProvider} from "./context/GroupContext.jsx";
+import FeedCreate from "./pages/FeedCreate.jsx";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function AppRoutes() {
           <Route path="/survey" element={<Survey/>}/>
 
           <Route path="/main/home" element={<Feed/>}/>
+          <Route path="/main/feed/create" element={<FeedCreate />}/>
           <Route path="/main/manito" element={<Manitto/>}/>
           <Route path="/main/recommendation" element={<Recommendation/>}/>
           <Route path="/main/profile" element={<div>Profile</div>}/>
