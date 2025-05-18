@@ -16,7 +16,7 @@ function MainAppBar() {
   }, [selectedGroup])
 
   return (
-    <div className="sticky w-full mx-auto top-0 flex h-14 px-4 items-center border-b bg-white gap-3">
+    <div className="sticky w-full mx-auto top-0 flex h-14 px-4 items-center border-b bg-white gap-3 z-20">
       {/* 로고 */}
       <img
         src={Logo}
