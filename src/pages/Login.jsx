@@ -9,24 +9,24 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
 
   // DEBUG: 테스트 계정 로그인 && 로고 이미지 클릭 이벤트 제거 필요
-  // const testLogin = () => {
-  //   axios.get("test/token/8", {
-  //     baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
-  //   })
-  //     .then(res => {
-  //       const data = res.data.data;
-  //
-  //       console.log(data)
-  //
-  //       // 로그인 성공 시 accessToken을 localStorage에 저장
-  //       const accessToken = data.jwt;
-  //       localStorage.setItem("accessToken", accessToken);
-  //       localStorage.setItem("refreshToken", data.refreshToken);
-  //       localStorage.setItem("userId", data.userId);
-  //
-  //       window.location.href = "/main/home";
-  //     })
-  // }
+  const testLogin = () => {
+    axios.get("test/token/17", {
+      baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
+    })
+      .then(res => {
+        const data = res.data.data;
+
+        console.log(data)
+
+        // 로그인 성공 시 accessToken을 localStorage에 저장
+        const accessToken = data.jwt;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+        localStorage.setItem("userId", data.userId);
+
+        window.location.href = "/main/home";
+      })
+  }
 
   useEffect(() => {
     if (code) {
@@ -71,7 +71,7 @@ export default function Login() {
     <div className="w-full min-h-dvh flex flex-col items-center justify-center gap-8">
       {/* 로고 이미지 */}
       <div className="w-32 h-32 relative">
-        <img src={LogoImage} alt="Logo Image" className="w-full h-full object-contain" />
+        <img src={LogoImage} alt="Logo Image" className="w-full h-full object-contain" onClick={testLogin}/>
       </div>
 
       <div className="text-center space-y-2 mb-20">

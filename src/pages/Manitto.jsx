@@ -12,6 +12,8 @@ import FloatingAddButton from "../components/FloatingAddButton.jsx";
 function Manitto() {
   const {selectedGroup} = useGroup()
   const [isLoading, setIsLoading] = useState(true)
+  const [role, setRole] = useState(null)
+  const [manittee, setManittee] = useState(null)
   const [manitto, setManitto] = useState(null)
   const [missionsCompleted, setMissionsCompleted] = useState([])
   const [missionsInProgress, setMissionsInProgress] = useState([])
@@ -20,7 +22,12 @@ function Manitto() {
     // 마니또 정보 조회
     api.get("manitto")
       .then(res => {
-        setManitto(res.data.data.manittee)
+        const data = res.data.data
+        console.log("Manitto: ", data)
+
+        setRole(data.role)
+        setManittee(data.manittee)
+        setManitto(data.manitto)
       })
       .catch(err => {
         console.log("Error:", err)
@@ -47,7 +54,6 @@ function Manitto() {
   const handleMissionAdd = () => {
     api.post("manitto/missions/assign")
       .then(res => {
-        console.log("Mission added:", res.data)
         window.location.reload()
       })
       .catch(err => {
@@ -56,84 +62,58 @@ function Manitto() {
       })
   }
 
-  // DEBUG: 콘솔 로그
-  useEffect(() => {
-    console.log("Manitto: ", manitto)
-  }, [manitto])
-
-  // DEBUG: 콘솔 로그
-  useEffect(() => {
-    console.log("Missions Completed: ", missionsCompleted)
-  }, [missionsCompleted])
-
-  // DEBUG: 콘솔 로그
-  useEffect(() => {
-    console.log("Missions In Progress: ", missionsInProgress)
-  }, [missionsInProgress])
-
   // 로딩 중
   if (isLoading) {
     return (
       <LoadingSpinner/>
     )
   } else {
-    // 마니또 정보 조회 실패 시
-    if (manitto === null) {
-      return (
-        <div className="flex items-center justify-center p-4">
-          <div className="text-center text-2xl font-bold">마니또 정보를 찾을 수 없습니다.</div>
+    return (
+      <div className="flex flex-col w-full">
+        {/* 마니또 공개 타이머 */}
+        <div className="flex flex-col overflow-y-auto p-4 gap-2">
+          <div className="font-bold text-start">다음 마니또 공개까지 남은 시간</div>
+          <CountdownTimer initialTime={role === "manittee" ? manitto.remainingTime : manittee.remainingTime}/>
         </div>
-      )
-    }
-    // 마니또 정보 조회 성공 시
-    else {
-      return (
-        <div className="flex flex-col w-full">
-          {/* 마니또 공개 타이머 */}
-          <div className="flex flex-col overflow-y-auto p-4 gap-2">
-            <div className="font-bold text-start">다음 마니또 공개까지 남은 시간</div>
-            <CountdownTimer initialTime={manitto.remainingTime}/>
-          </div>
 
-          <Divider/>
+        <Divider/>
 
-          {/* 마니또 정보 */}
-          <ManittoInfoCard manitto={manitto}/>
+        {/* 마니또 정보 */}
+        <ManittoInfoCard role={role} manittee={manittee} manitto={manitto}/>
 
-          <Divider/>
+        <Divider/>
 
-          {/* 미션 목록 */}
-          <div className="flex flex-col gap-4 p-4">
-            <div className="flex w-full justify-between">
-              <div className="font-bold text-start">미션 달성률</div>
-              <div className="font-bold text-start">
-                {missionsCompleted.length} / {missionsCompleted.length + missionsInProgress.length}
-              </div>
+        {/* 미션 목록 */}
+        <div className="flex flex-col gap-4 p-4">
+          <div className="flex w-full justify-between">
+            <div className="font-bold text-start">미션 달성률</div>
+            <div className="font-bold text-start">
+              {missionsCompleted.length} / {missionsCompleted.length + missionsInProgress.length}
             </div>
-
-            <HorizontalProgressBar
-              progress={missionsCompleted.length / (missionsCompleted.length + missionsInProgress.length) * 100}/>
-
-            {/* 진행중인 미션 */}
-            <div className="font-bold text-start">진행중인 미션</div>
-
-            {missionsInProgress.map((mission) => (
-              <MissionCard mission={mission}/>
-            ))}
-
-            {/* 완료된 미션 */}
-            <div className="font-bold text-start">완료된 미션</div>
-
-            {missionsCompleted.map((mission) => (
-              <MissionCard mission={mission}/>
-            ))}
           </div>
 
-          {/* 미션 추가 버튼 */}
-          <FloatingAddButton onClick={handleMissionAdd}/>
+          <HorizontalProgressBar
+            progress={missionsCompleted.length / (missionsCompleted.length + missionsInProgress.length) * 100}/>
+
+          {/* 진행중인 미션 */}
+          <div className="font-bold text-start">진행중인 미션</div>
+
+          {missionsInProgress.map((mission) => (
+            <MissionCard mission={mission}/>
+          ))}
+
+          {/* 완료된 미션 */}
+          <div className="font-bold text-start">완료된 미션</div>
+
+          {missionsCompleted.map((mission) => (
+            <MissionCard mission={mission}/>
+          ))}
         </div>
-      )
-    }
+
+        {/* 미션 추가 버튼 */}
+        <FloatingAddButton onClick={handleMissionAdd}/>
+      </div>
+    )
   }
 }
 
