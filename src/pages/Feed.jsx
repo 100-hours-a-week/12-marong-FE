@@ -5,9 +5,11 @@ import {useGroup} from "../context/GroupContext.jsx";
 import FloatingAddButton from "../components/FloatingAddButton.jsx";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingWheel from "../components/LoadingWheel.jsx";
+import {useNavigate} from "react-router-dom";
 
 function Feed() {
   const {selectedGroup} = useGroup()
+  const navigate = useNavigate()
   const [feeds, setFeeds] = useState([])
   const [page, setPage] = useState(1)
 
@@ -37,27 +39,29 @@ function Feed() {
     setFeeds(prevFeeds =>
       prevFeeds.map(feed =>
         feed.feedId === feedId
-          ? { ...feed, isLiked: !feed.isLiked }
+          ? {...feed, isLiked: !feed.isLiked}
           : feed
       )
     );
   }
 
   const addPost = () => {
-    api.post("feeds", {
-      missionId: 1,
-      manittoName: "마니또 1",
-      content: "피드 추가 테스트 내용",
-    }, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    api.get("manitto/missions")
       .then(res => {
-        console.log(res.data)
+        const missions = res.data.data.missions
+        const inProgress = missions.inProgress
+
+        if (inProgress.length === 0) {
+          alert("진행 중인 미션이 없습니다.")
+        } else {
+          navigate("/main/feed/create", {
+            state: { mission: inProgress[0] }
+          })
+        }
       })
       .catch(err => {
         console.log("Error:", err)
+        alert(err.response.data.message)
       })
   }
 

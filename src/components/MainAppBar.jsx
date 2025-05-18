@@ -4,8 +4,13 @@ import {useEffect, useState} from "react";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react"
 import {useGroup} from "../context/GroupContext.jsx";
 import Logo from "../assets/logo.png";
+import {useLocation} from "react-router-dom";
+import {IoMdArrowRoundBack} from "react-icons/io";
 
 function MainAppBar() {
+  const location = useLocation()
+  const shouldShowBack = location.pathname.startsWith('/main/feed/create')
+
   const {selectedGroup, setSelectedGroup} = useGroup()
   const [groups, setGroups] = useState([
     "카카오테크 부트캠프"
@@ -17,12 +22,19 @@ function MainAppBar() {
 
   return (
     <div className="sticky w-full mx-auto top-0 flex h-14 px-4 items-center border-b bg-white gap-3 z-20">
-      {/* 로고 */}
-      <img
-        src={Logo}
-        alt="Logo"
-        className="w-8 h-8"
-      />
+      {/* 왼쪽 아이콘 */}
+      {shouldShowBack ? (
+        <IoMdArrowRoundBack
+          size={24}
+          onClick={() => window.history.back()}
+        />
+      ) : (
+        <img
+          src={Logo}
+          alt="Logo"
+          className="w-8 h-8"
+        />
+      )}
 
 
       {/* 그룹 선택 드롭박스 */}
