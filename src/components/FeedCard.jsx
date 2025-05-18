@@ -2,7 +2,6 @@
 
 import api from "../api/instance/backend.jsx"
 import {IoIosMore} from "react-icons/io";
-import joy from "../assets/joy.jpg"
 import ElapsedTimeText from "./ElapsedTimeText.jsx";
 import defaultProfile from "../assets/default_profile.png"
 import {useEffect} from "react";
