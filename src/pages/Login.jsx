@@ -9,24 +9,24 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
 
   // DEBUG: 테스트 계정 로그인 && 로고 이미지 클릭 이벤트 제거 필요
-  const testLogin = () => {
-    axios.get("test/token/8", {
-      baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
-    })
-      .then(res => {
-        const data = res.data.data;
-
-        console.log(data)
-
-        // 로그인 성공 시 accessToken을 localStorage에 저장
-        const accessToken = data.jwt;
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
-        localStorage.setItem("userId", data.userId);
-
-        window.location.href = "/main/home";
-      })
-  }
+  // const testLogin = () => {
+  //   axios.get("test/token/8", {
+  //     baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
+  //   })
+  //     .then(res => {
+  //       const data = res.data.data;
+  //
+  //       console.log(data)
+  //
+  //       // 로그인 성공 시 accessToken을 localStorage에 저장
+  //       const accessToken = data.jwt;
+  //       localStorage.setItem("accessToken", accessToken);
+  //       localStorage.setItem("refreshToken", data.refreshToken);
+  //       localStorage.setItem("userId", data.userId);
+  //
+  //       window.location.href = "/main/home";
+  //     })
+  // }
 
   useEffect(() => {
     if (code) {
