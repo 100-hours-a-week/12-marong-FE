@@ -67,7 +67,7 @@ function Feed() {
 
   return (
     <div className="">
-      <div className="flex flex-col px-4">
+      <div className="flex flex-col px-4 w-full">
         {/* 피드 목록 */}
         <InfiniteScroll
           className="flex-1 overflow-y-auto"

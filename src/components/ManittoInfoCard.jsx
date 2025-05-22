@@ -1,12 +1,12 @@
 import defaultProfile from '../assets/default_profile.png'
 
 function ManittoInfoCard({role, manitto, manittee}) {
-  const profileImage = role === "manittee" ? defaultProfile : manittee.profileImage
+  const profileImage = role === "manittee" ? null : manittee.profileImage
 
   return (
     <div className="flex gap-4 p-4 items-center">
       <img
-        src={profileImage}
+        src={profileImage ? profileImage : defaultProfile}
         alt="프로필 이미지"
         className="w-16 h-16 rounded-full object-cover"
       />
