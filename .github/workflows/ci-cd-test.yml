@@ -1,0 +1,95 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set Environment File based on Branch
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "VITE_KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }}" >> .env
+            echo "VITE_KAKAO_CLIENT_JS_KEY=${{ secrets.KAKAO_CLIENT_JS_KEY }}" >> .env
+            echo "VITE_KAKAO_REDIRECT_URI=${{ secrets.DEV_KAKAO_REDIRECT_URI }}" >> .env
+            echo "VITE_BACKEND_BASE_URL=${{ secrets.DEV_BACKEND_BASE_URL }}" >> .env
+          fi
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions :
+      id-token : write
+      contents : read
+      pull-requests : write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set Dockerfile path and Image Tag
+        id: set_docker_vars
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "develop"
+          fi
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER_ID }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK (gcloud CLI)
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker to use Artifact Registry
+        run: gcloud auth configure-docker asia-northeast3-docker.pkg.dev
+
+      - name: Build and push Docker image to Artifact Registry
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: asia-northeast3-docker.pkg.dev/${{ secrets.DEV_PROJECT_ID }}/${{ secrets.DEV_ARTIFACT_REGISTRY_REPO }}/frontend:develop
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Deploy to Compute Engine VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          scripts: |
+            echo "Stopping and removing existing containers..."
+            docker stop marong-frontend || true
+            docker rm marong-frontend || true
+
+            echo "Authenticating to Artifact Registry..."
+            gcloud auth configure-docker asia-northeast3-docker.pkg.dev
+
+            echo "Pulling latest Docker image..."
+            docker pull asia-northeast3-docker.pkg.dev/${{ secrets.DEV_PROJECT_ID }}/${{ secrets.DEV_ARTIFACT_REGISTRY_REPO }}/frontend:develop
+
+            echo "Starting new container..."
+            docker run -d \
+              --name marong-frontend \
+              -p 80:80 \
+              asia-northeast3-docker.pkg.dev/${{ secrets.DEV_PROJECT_ID }}/${{ secrets.DEV_ARTIFACT_REGISTRY_REPO }}/frontend:develop
+
+            echo "Deployment to Compute Engine VM completed."
+            
