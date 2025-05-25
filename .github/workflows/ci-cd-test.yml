@@ -64,7 +64,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: asia-northeast3-docker.pkg.dev/${{ secrets.DEV_PROJECT_ID }}/${{ secrets.DEV_ARTIFACT_REGISTRY_REPO }}/frontend:develop
+          tags: asia-northeast3-docker.pkg.dev/marong-459104/marong-docker-repo/frontend:develop
 
       - name: Deploy to Compute Engine VM
         uses: appleboy/ssh-action@master
@@ -81,13 +81,13 @@ jobs:
             gcloud auth configure-docker asia-northeast3-docker.pkg.dev
 
             echo "Pulling latest Docker image..."
-            docker pull asia-northeast3-docker.pkg.dev/${{ secrets.DEV_PROJECT_ID }}/${{ secrets.DEV_ARTIFACT_REGISTRY_REPO }}/frontend:develop
+            docker pull asia-northeast3-docker.pkg.dev/marong-459104/marong-docker-repo/frontend:develop
 
             echo "Starting new container..."
             docker run -d \
               --name marong-frontend \
               -p 80:80 \
-              asia-northeast3-docker.pkg.dev/${{ secrets.DEV_PROJECT_ID }}/${{ secrets.DEV_ARTIFACT_REGISTRY_REPO }}/frontend:develop
+              asia-northeast3-docker.pkg.dev/marong-459104/marong-docker-repo/frontend:develop
 
             echo "Deployment to Compute Engine VM completed."
             
