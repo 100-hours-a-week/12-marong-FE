@@ -72,7 +72,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          scripts: |
+          script: |
             echo "Stopping and removing existing containers..."
             docker stop marong-frontend || true
             docker rm marong-frontend || true
