@@ -3,33 +3,15 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
       - develop
   pull_request:
     branches:
-      - main
       - develop
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set Environment File based on Branch
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
-            echo "VITE_KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }}" >> .env
-            echo "VITE_KAKAO_CLIENT_JS_KEY=${{ secrets.KAKAO_CLIENT_JS_KEY }}" >> .env
-            echo "VITE_KAKAO_REDIRECT_URI=${{ secrets.DEV_KAKAO_REDIRECT_URI }}" >> .env
-            echo "VITE_BACKEND_BASE_URL=${{ secrets.DEV_BACKEND_BASE_URL }}" >> .env
-          fi
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
+    environment: dev
 
     permissions :
       id-token : write
@@ -40,12 +22,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set Dockerfile path and Image Tag
-        id: set_docker_vars
+      - name: Set ENV Files based on Branch
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
-            echo "develop"
-          fi
+          echo "VITE_KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }}" >> .env
+          echo "VITE_KAKAO_CLIENT_JS_KEY=${{ secrets.KAKAO_CLIENT_JS_KEY }}" >> .env
+          echo "VITE_KAKAO_REDIRECT_URI=${{ secrets.KAKAO_REDIRECT_URI }}" >> .env
+          echo "VITE_BACKEND_BASE_URL=${{ secrets.BACKEND_BASE_URL }}" >> .env
 
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
