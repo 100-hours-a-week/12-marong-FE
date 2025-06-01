@@ -198,12 +198,12 @@ export default function GroupNicknameDialog({
               </div>
 
               <div className="flex flex-row gap-2">
-                <button
+                {/* <button
                   onClick={handleClose}
                   className="flex-1 p-3 text-sm text-gray-500 bg-gray-200 border resize-none rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-pink"
                 >
                   취소
-                </button>
+                </button> */}
                 <button
                   onClick={() => {
                     updateGroupProfile();
