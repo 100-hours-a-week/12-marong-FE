@@ -10,6 +10,7 @@ function FeedCreate() {
   const location = useLocation();
   const mission = location.state?.mission;
   const groupId = location.state?.groupId;
+  const [uploadImg, setUploadImg] = useState(null);
   const [uploadImgUrl, setUploadImgUrl] = useState("");
   const [content, setContent] = useState("");
 
@@ -28,6 +29,9 @@ function FeedCreate() {
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    setUploadImg(file);
+
     const reader = new FileReader();
     reader.onloadend = () => {
       setUploadImgUrl(reader.result);
@@ -78,7 +82,7 @@ function FeedCreate() {
           uploadFeed({
             missionId: mission.missionId,
             content,
-            image: uploadImgUrl,
+            image: uploadImg,
           })
         }
         disabled={!content}

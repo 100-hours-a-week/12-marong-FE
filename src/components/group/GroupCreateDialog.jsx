@@ -14,9 +14,9 @@ const initialState = {
   groupName: "",
   description: "",
   inviteCode: "",
-  groupImage: "",
+  groupImage: null,
   groupUserNickname: "",
-  groupUserProfileImage: "",
+  groupUserProfileImage: null,
 };
 const initialError = {
   groupName: "",
@@ -35,6 +35,8 @@ export default function GroupCreateDialog({ open, setOpen, onSuccess }) {
   const [fields, setFields] = useState(initialState);
   const [error, setError] = useState(initialError);
   const [valid, setValid] = useState(initialValid);
+  const [groupImageUrl, setGroupImageUrl] = useState("");
+  const [groupUserProfileImageUrl, setGroupUserProfileImageUrl] = useState("");
 
   const { mutate: createGroup } = useMutation({
     ...GroupQueries.createGroup({
@@ -92,12 +94,15 @@ export default function GroupCreateDialog({ open, setOpen, onSuccess }) {
   const handleGroupImage = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    setFields((prev) => ({
+      ...prev,
+      groupImage: file,
+    }));
+
     const reader = new FileReader();
     reader.onloadend = () => {
-      setFields((prev) => ({
-        ...prev,
-        groupImage: reader.result,
-      }));
+      setGroupImageUrl(reader.result);
     };
     reader.readAsDataURL(file);
   };
@@ -105,12 +110,15 @@ export default function GroupCreateDialog({ open, setOpen, onSuccess }) {
   const handleGroupUserProfileImage = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    setFields((prev) => ({
+      ...prev,
+      groupUserProfileImage: file,
+    }));
+
     const reader = new FileReader();
     reader.onloadend = () => {
-      setFields((prev) => ({
-        ...prev,
-        groupUserProfileImage: reader.result,
-      }));
+      setGroupUserProfileImageUrl(reader.result);
     };
     reader.readAsDataURL(file);
   };
@@ -143,9 +151,9 @@ export default function GroupCreateDialog({ open, setOpen, onSuccess }) {
               <div className="flex flex-col gap-2">
                 <label className="cursor-pointer">
                   <div className="flex items-center justify-center mx-auto text-gray-400 transition border rounded-full size-24 hover:border-brand-pink text-start">
-                    {fields.groupImage ? (
+                    {groupImageUrl ? (
                       <img
-                        src={fields.groupImage}
+                        src={groupImageUrl}
                         alt="업로드 미리보기"
                         className="w-full h-full rounded-full"
                       />
@@ -207,9 +215,9 @@ export default function GroupCreateDialog({ open, setOpen, onSuccess }) {
 
                   <label className="cursor-pointer">
                     <div className="flex items-center justify-center mx-auto text-gray-400 transition border rounded-full size-24 hover:border-brand-pink text-start">
-                      {fields.groupUserProfileImage ? (
+                      {groupUserProfileImageUrl ? (
                         <img
-                          src={fields.groupUserProfileImage}
+                          src={groupUserProfileImageUrl}
                           alt="업로드 미리보기"
                           className="w-full h-full rounded-full"
                         />

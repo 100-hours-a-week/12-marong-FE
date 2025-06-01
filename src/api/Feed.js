@@ -20,6 +20,7 @@ export const toggleLike = async ({feedId, isLiked}) => {
 };
 
 export const uploadFeed = async ({groupId, missionId, content, image}) => {
+  console.log("uploadFeed", groupId, missionId, content, image instanceof File);
   const formData = new FormData();
   formData.append("groupId", groupId);
   formData.append("missionId", missionId);

@@ -7,6 +7,8 @@ export const getMyGroups = async () => {
 }
 
 export const joinGroup = async (groupId, inviteCode, nickname, groupUserProfileImage) => {
+  console.log("joinGroup", groupId, inviteCode, nickname, groupUserProfileImage instanceof File);
+
   const formData = new FormData();
   formData.append("inviteCode", inviteCode);
   formData.append("groupUserNickname", nickname);
@@ -50,6 +52,7 @@ export const checkNicknameStatus = async (groupId) => {
 }
 
 export const updateGroupProfile = async (groupId, nickname, groupProfileImage) => {
+  console.log("updateGroupProfile", groupId, nickname, groupProfileImage);
   const formData = new FormData();
   formData.append("groupUserNickname", nickname);
   if (groupProfileImage) {
@@ -66,6 +69,7 @@ export const updateGroupProfile = async (groupId, nickname, groupProfileImage) =
 }
 
 export const createGroup = async (groupName, description, inviteCode, groupImage, groupUserNickname, groupUserProfileImage) => {
+  console.log("createGroup", groupName, description, inviteCode, groupImage, groupUserNickname, groupUserProfileImage);
   const formData = new FormData();
   formData.append("groupName", groupName);
   formData.append("description", description);

@@ -13,7 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 const initialState = {
   inviteCode: "",
   nickname: "",
-  groupUserProfileImage: "",
+  groupUserProfileImage: null,
 };
 const initialError = {
   inviteCode: "",
@@ -28,6 +28,7 @@ export default function GroupJoinDialog({ open, setOpen, onSuccess, group }) {
   const [fields, setFields] = useState(initialState);
   const [error, setError] = useState(initialError);
   const [valid, setValid] = useState(initialValid);
+  const [profileImageUrl, setProfileImageUrl] = useState("");
   const [nicknameValidMsg, setNicknameValidMsg] = useState("");
 
   const {
@@ -107,12 +108,15 @@ export default function GroupJoinDialog({ open, setOpen, onSuccess, group }) {
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    setFields((prev) => ({
+      ...prev,
+      groupUserProfileImage: file,
+    }));
+
     const reader = new FileReader();
     reader.onloadend = () => {
-      setFields((prev) => ({
-        ...prev,
-        groupUserProfileImage: reader.result,
-      }));
+      setProfileImageUrl(reader.result);
     };
     reader.readAsDataURL(file);
   };
@@ -146,9 +150,9 @@ export default function GroupJoinDialog({ open, setOpen, onSuccess, group }) {
               <div className="flex flex-col gap-2">
                 <label className="cursor-pointer">
                   <div className="flex items-center justify-center mx-auto text-gray-400 transition border rounded-full size-24 hover:border-brand-pink text-start">
-                    {fields.groupUserProfileImage ? (
+                    {profileImageUrl ? (
                       <img
-                        src={fields.groupUserProfileImage}
+                        src={profileImageUrl}
                         alt="업로드 미리보기"
                         className="w-full h-full rounded-full"
                       />
@@ -229,7 +233,8 @@ export default function GroupJoinDialog({ open, setOpen, onSuccess, group }) {
                     !valid.nickname ||
                     !valid.inviteCode ||
                     !fields.inviteCode ||
-                    !fields.nickname
+                    !fields.nickname ||
+                    nicknameValidMsg !== "사용 가능한 닉네임입니다."
                   }
                   className="flex-1 p-3 text-sm text-white border resize-none bg-brand-pink rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-pink disabled:opacity-50 disabled:cursor-not-allowed"
                 >
