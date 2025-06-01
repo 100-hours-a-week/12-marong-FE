@@ -14,17 +14,17 @@ function Feed() {
   const [page, setPage] = useState(1)
 
   const getFeeds = () => {
-    api.get("feeds", {
-      params: {
-        page: page,
-      },
-    })
-      .then(res => {
-        console.log(res.data.data)
-        setFeeds(feeds.concat(res.data.data.feeds))
-
-        setPage(page + 1)
-      })
+    // api.get("feeds", {
+    //   params: {
+    //     page: page,
+    //   },
+    // })
+    //   .then(res => {
+    //     console.log(res.data.data)
+    //     setFeeds(feeds.concat(res.data.data.feeds))
+    //
+    //     setPage(page + 1)
+    //   })
   }
 
   useEffect(() => {
