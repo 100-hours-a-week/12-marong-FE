@@ -1,43 +1,36 @@
-import {useEffect, useState} from 'react';
-import api from '../api/instance/backend.jsx';
-import KakaoMap from "../components/KakaoMap.jsx";
-import useLocation from "../context/UseLocation.jsx";
+import { useEffect } from "react";
+import KakaoMap from "@/components/recommendation/KakaoMap.jsx";
+import { useQuery } from "@tanstack/react-query";
+import { recommendationQueries } from "@/api/query/RecommendationQueries.js";
+import { useGroup } from "@/context/GroupContext.jsx";
 
 function Recommendation() {
-  const [places, setPlaces] = useState([])
-  const {location} = useLocation()
-  const [isLoading, setIsLoading] = useState(true)
+  const { selectedGroup } = useGroup();
+
+  const { data: placeRecommendations } = useQuery({
+    ...recommendationQueries.getPlaceRecommendations(selectedGroup?.groupId),
+    enabled: !!selectedGroup?.groupId,
+    // retry: false,
+  });
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-
-    console.log(location)
-
-    if (location) {
-      console.log("Location: ", location)
-      api.get('recommendations/places')
-        .then((res) => {
-          const data = res.data.data
-          console.log("data: ", data.restaurants[0], data.cafes[0])
-          setPlaces([data.restaurants[0], data.cafes[0]])
-          setIsLoading(false)
-        })
-        .catch((err) => {
-          console.log(err);
-          setIsLoading(false)
-        })
-    }
-  }, [location])
-
-  useEffect(() => {
-    console.log("Places: ", places)
-  }, [places])
+    console.log("Place Recommendations: ", placeRecommendations);
+  }, [placeRecommendations]);
 
   return (
     <div className="flex flex-1">
-      <KakaoMap places={places} isLoading={isLoading}/>
+      {placeRecommendations ? (
+        <KakaoMap
+          places={[
+            placeRecommendations.data.restaurants[0],
+            placeRecommendations.data.cafes[0],
+          ]}
+        />
+      ) : (
+        <KakaoMap places={[]} />
+      )}
     </div>
-  )
+  );
 }
 
 export default Recommendation;
