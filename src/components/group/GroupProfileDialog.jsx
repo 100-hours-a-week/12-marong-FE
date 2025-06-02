@@ -173,6 +173,8 @@ export default function GroupNicknameDialog({
                   </p>
                 )}
 
+                <div className="flex-1 text-sm text-brand-brown_dark mx-2">마니또가 보는 닉네임입니다!</div>
+                <div className="flex-1 text-sm text-brand-brown_dark mx-2"> 마니또가 나를 알아볼 수 있도록 적어주세요!</div>
                 <div className="flex flex-row w-full gap-2 mt-2">
                   <input
                     type="text"
