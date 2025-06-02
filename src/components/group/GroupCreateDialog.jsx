@@ -82,9 +82,9 @@ export default function GroupCreateDialog({ open, setOpen, onSuccess }) {
     }
     if (name === "groupUserNickname") {
       if (!value) errorMsg = "";
-      else if (!/^[가-힣a-zA-Z0-9._\-\s]{2,20}$/.test(value))
+      else if (!/^[가-힣a-zA-Z0-9._\-\s()]{2,20}$/.test(value))
         errorMsg =
-          "닉네임은 한글, 영문, 숫자, 점(.), 언더스코어(_), 하이픈(-), 공백만 사용 가능합니다.(2자 이상 20자 이하)";
+          "닉네임은 한글, 영문, 숫자, 점(.), 언더스코어(_), 하이픈(-), 괄호, 공백만 사용 가능합니다.(2자 이상 20자 이하)";
       else isValid = true;
     }
     setError((prev) => ({ ...prev, [name]: errorMsg }));
