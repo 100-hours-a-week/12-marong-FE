@@ -149,12 +149,12 @@ export default function GroupJoinDialog({ open, setOpen, onSuccess, group }) {
             <div className="flex flex-col gap-4 mt-4">
               <div className="flex flex-col gap-2">
                 <label className="cursor-pointer">
-                  <div className="flex items-center justify-center mx-auto text-gray-400 transition border rounded-full size-24 hover:border-brand-pink text-start">
+                  <div className="flex items-center justify-center mx-auto text-gray-400 transition border rounded-full size-24 hover:border-brand-pink text-start overflow-hidden">
                     {profileImageUrl ? (
                       <img
                         src={profileImageUrl}
                         alt="업로드 미리보기"
-                        className="w-full h-full rounded-full"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
                       "프로필 이미지"
