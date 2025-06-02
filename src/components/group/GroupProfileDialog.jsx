@@ -176,7 +176,7 @@ export default function GroupNicknameDialog({
                 <div className="flex flex-row w-full gap-2 mt-2">
                   <input
                     type="text"
-                    placeholder="닉네임"
+                    placeholder="이름 (e.g. noah.moon)"
                     onChange={(e) => handleInput("nickname", e.target.value)}
                     className="flex-1 p-3 text-sm border resize-none rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-pink"
                   />
