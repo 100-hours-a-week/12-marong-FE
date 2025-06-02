@@ -210,7 +210,7 @@ export default function GroupCreateDialog({ open, setOpen, onSuccess }) {
 
                 <div className="flex flex-col gap-2 p-4 border rounded-xl">
                   <div className="text-sm text-brand-brown_dark">
-                    그룹 프로필
+                    이 그룹에서 사용할 프로필 생성
                   </div>
 
                   <label className="cursor-pointer">
