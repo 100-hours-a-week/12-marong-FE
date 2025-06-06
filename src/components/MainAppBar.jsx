@@ -121,24 +121,31 @@ function MainAppBar() {
               공개 그룹 가입
             </div>
 
-            {publicGroups?.pages.map((page) =>
-              page.data.groups.map((group) => (
-                <MenuItem key={group.groupId}>
-                  <button
-                    onClick={() => {
-                      setSelectedGroupToJoin(group);
-                      setIsGroupJoinDialogOpen(true);
-                    }}
-                    className="block w-full px-4 py-3 text-sm text-start hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
-                    disabled={myGroups?.data.some(
-                      (myGroup) => myGroup.groupId === group.groupId
-                    )}
-                  >
-                    {group.groupName}
-                  </button>
-                </MenuItem>
-              ))
-            )}
+            <div className="relative">
+              <div className="overflow-y-auto max-h-60">
+                {publicGroups?.pages.map((page) =>
+                  page.data.groups.map((group) => (
+                    <MenuItem key={group.groupId}>
+                      <button
+                        onClick={() => {
+                          setSelectedGroupToJoin(group);
+                          setIsGroupJoinDialogOpen(true);
+                        }}
+                        className="block w-full px-4 py-3 text-sm text-start hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
+                        disabled={myGroups?.data.some(
+                          (myGroup) => myGroup.groupId === group.groupId
+                        )}
+                      >
+                        {group.groupName}
+                      </button>
+                    </MenuItem>
+                  ))
+                )}
+              </div>
+              <div className="absolute z-10 -translate-x-1/2 pointer-events-none left-1/2 bottom-1">
+                <ChevronDownIcon className="w-6 h-6 text-gray-400 opacity-80 animate-bounce" />
+              </div>
+            </div>
 
             {hasNextPage && (
               <button
