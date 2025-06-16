@@ -11,6 +11,7 @@ import FloatingAddButton from "../components/FloatingAddButton.jsx";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { manittoQueries } from "@/api/query/ManittoQueries.js";
 import ManitteeInfoCard from "@/components/manitto/ManitteeInfoCard.jsx";
+import ManittoPrevCard from "@/components/manitto/ManittoPrevCard.jsx";
 
 function Manitto() {
   const { selectedGroup } = useGroup();
@@ -33,14 +34,6 @@ function Manitto() {
     },
   });
 
-  useEffect(() => {
-    console.log("Manitto: ", manitto);
-  }, [manitto]);
-
-  useEffect(() => {
-    console.log("Missions: ", missions);
-  }, [missions]);
-
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-col gap-2 p-4 overflow-y-auto">
@@ -56,6 +49,13 @@ function Manitto() {
 
       {manitto && manitto.data.period === "MANITTO_ACTIVE" && (
         <div className="flex flex-col overflow-y-auto">
+          <div className="px-4 pt-4 font-bold text-start text-brand-brown_dark">
+            지난주 마니또 정보
+          </div>
+          {manitto.data.previousCycleManitto && (
+            <ManittoPrevCard data={manitto.data.previousCycleManitto} />
+          )}
+
           <div className="px-4 pt-4 font-bold text-start text-brand-brown_dark">
             마니띠 정보
           </div>
