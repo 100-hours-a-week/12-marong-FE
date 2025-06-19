@@ -1,6 +1,6 @@
 import type { NavigateFunction } from "react-router-dom";
 import { kakaoLogin } from "./auth";
-import type { IKakaoLoginResponse, IUser } from "./type";
+import type { IKakaoLoginResponse } from "./type";
 
 export const authQueries = {
   all: () => ["auth"],
