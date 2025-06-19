@@ -1,4 +1,4 @@
-export interface IUserResponseDto {
+export interface IUser {
   userId: number;
   kakaoName: string;
   profileImage: string;
@@ -10,5 +10,5 @@ export interface IKakaoLoginResponse {
   jwt: string;
   refreshToken: string;
   isNewUser: boolean;
-  user: IUserResponseDto;
+  user: IUser;
 }

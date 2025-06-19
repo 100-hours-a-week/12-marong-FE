@@ -1,6 +1,6 @@
 import type { NavigateFunction } from "react-router-dom";
 import { kakaoLogin } from "./auth";
-import type { IKakaoLoginResponse } from "./type";
+import type { IKakaoLoginResponse, IUser } from "./type";
 
 export const authQueries = {
   all: () => ["auth"],
@@ -11,10 +11,12 @@ export const authQueries = {
     onSuccess: (data: IKakaoLoginResponse) => {
       localStorage.setItem("accessToken", data.jwt);
       localStorage.setItem("refreshToken", data.refreshToken);
+      localStorage.setItem(
+        "hasCompletedSurvey",
+        data.user.hasCompletedSurvey.toString()
+      );
 
-      console.log(data);
-
-      if (data.user.hasCompletedSurvey) {
+      if (!data.user.hasCompletedSurvey) {
         navigate("/survey");
       } else {
         navigate("/home");

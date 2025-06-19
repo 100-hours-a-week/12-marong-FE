@@ -5,14 +5,23 @@ import ManittoPage from "@/pages/manitto/ManittoPage";
 import RecommendPage from "@/pages/recommend/RecommendPage";
 import ProfilePage from "@/pages/profile/ProfilePage";
 import LoginPage from "@/pages/login/LoginPage";
+import SurveyPage from "@/pages/survey/SurveyPage";
 
 export const router = createBrowserRouter([
   {
     Component: MainLayout,
     children: [
       {
+        path: "/",
+        Component: HomePage,
+      },
+      {
         path: "/auth",
         Component: LoginPage,
+      },
+      {
+        path: "/survey",
+        Component: SurveyPage,
       },
       {
         path: "/home",
