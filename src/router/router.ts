@@ -4,21 +4,32 @@ import MainLayout from "@/components/layout/MainLayout";
 import ManittoPage from "@/pages/manitto/ManittoPage";
 import RecommendPage from "@/pages/recommend/RecommendPage";
 import ProfilePage from "@/pages/profile/ProfilePage";
-import { navItems } from "@/constants/navItems";
-
-const pageComponents: Record<string, React.ComponentType> = {
-  "/home": HomePage,
-  "/manitto": ManittoPage,
-  "/recommend": RecommendPage,
-  "/profile": ProfilePage,
-};
+import LoginPage from "@/pages/login/LoginPage";
 
 export const router = createBrowserRouter([
   {
     Component: MainLayout,
-    children: navItems.map((item) => ({
-      path: item.href,
-      Component: pageComponents[item.href],
-    })),
+    children: [
+      {
+        path: "/auth",
+        Component: LoginPage,
+      },
+      {
+        path: "/home",
+        Component: HomePage,
+      },
+      {
+        path: "/manitto",
+        Component: ManittoPage,
+      },
+      {
+        path: "/recommend",
+        Component: RecommendPage,
+      },
+      {
+        path: "/profile",
+        Component: ProfilePage,
+      },
+    ],
   },
 ]);
