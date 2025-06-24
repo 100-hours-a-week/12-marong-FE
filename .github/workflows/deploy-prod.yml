@@ -53,11 +53,14 @@ jobs:
 
       - name: Invalidate CloudFront cache
         run: |
-          DIST_ID=$(aws cloudfront list-distributions \
+          DISTRIBUTION_IDS=$(aws cloudfront list-distributions \
             --query "DistributionList.Items[?Aliases.Items[?contains(@, 'marong.co.kr')]].Id" \
             --output text)
-          echo "Invalidating CloudFront cache for distribution ID: $DIST_ID"
-          aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"
+
+          for DIST_ID in $DISTRIBUTION_IDS; do
+            echo "Invalidating CloudFront cache for distribution ID: $DIST_ID"
+            aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"
+          done
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
