@@ -29,3 +29,8 @@ export interface IUpdateUserGroupProfileRequestDto {
   groupUserNickname: string;
   groupUserProfileImage: File | null;
 }
+
+export interface IUserGroupListResponseDto {
+  nicknames: string[];
+  count: number;
+}

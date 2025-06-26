@@ -1,5 +1,6 @@
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -7,12 +8,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useEffect, useState } from "react";
-import { ArrowLeft, ChevronDown } from "lucide-react";
+import { ArrowLeft, ChevronDown, Info, Pencil } from "lucide-react";
 import { useMyGroup, usePublicGroup } from "@/hooks/useGroup";
 import type { IGroupResponseDto } from "@/api/group/type";
 import { useGroupStore } from "@/hooks/useGroupContext";
 import { useLocation } from "react-router-dom";
 import GroupJoinDialog from "@/components/pages/group/GroupJoinDialog";
+import GroupCreateDialog from "../pages/group/GroupCreateDialog";
+import GroupUpdateDialog from "../pages/group/GroupUpdateDialog";
+import GroupInfoDialog from "../pages/group/GroupInfoDialog";
 
 function TopAppBar() {
   const location = useLocation();
@@ -24,10 +28,15 @@ function TopAppBar() {
   const { selectedGroup, setSelectedGroup } = useGroupStore();
   const [selectedGroupToJoin, setSelectedGroupToJoin] =
     useState<IGroupResponseDto | null>(null);
+  const [selectedGroupToUpdate, setSelectedGroupToUpdate] =
+    useState<IGroupResponseDto | null>(null);
+  const [selectedGroupToInfo, setSelectedGroupToInfo] =
+    useState<IGroupResponseDto | null>(null);
 
   const [isGroupJoinDialogOpen, setIsGroupJoinDialogOpen] = useState(false);
   const [isGroupCreateDialogOpen, setIsGroupCreateDialogOpen] = useState(false);
   const [isGroupUpdateDialogOpen, setIsGroupUpdateDialogOpen] = useState(false);
+  const [isGroupInfoDialogOpen, setIsGroupInfoDialogOpen] = useState(false);
 
   useEffect(() => {
     if (!selectedGroup && myGroup?.[myGroup.length - 1]) {
@@ -58,15 +67,37 @@ function TopAppBar() {
           {myGroup?.map((group) => (
             <DropdownMenuItem
               key={group.groupId}
-              className={`py-2 ${
+              className={`py-2 flex items-center justify-between gap-12 text-black/80 ${
                 selectedGroup?.groupId === group.groupId
                   ? "text-brown-dark"
                   : ""
               }`}
-              disabled={selectedGroup?.groupId === group.groupId}
-              onClick={() => setSelectedGroup(group)}
+              // disabled={selectedGroup?.groupId === group.groupId}
+              onSelect={() => {
+                setSelectedGroup(group);
+              }}
             >
               {group.groupName}
+
+              <div className="flex gap-2 items-center">
+                <Pencil
+                  className="cursor-pointer pointer-events-auto hover:text-brown-light"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedGroupToUpdate(group);
+                    setIsGroupUpdateDialogOpen(true);
+                  }}
+                />
+
+                <Info
+                  className="cursor-pointer pointer-events-auto hover:text-brown-light"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedGroupToInfo(group);
+                    setIsGroupInfoDialogOpen(true);
+                  }}
+                />
+              </div>
             </DropdownMenuItem>
           ))}
 
@@ -108,7 +139,10 @@ function TopAppBar() {
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem className="text-lg text-brown-dark hover:text-brown-dark">
+          <DropdownMenuItem
+            className="text-base text-brown-dark hover:text-brown-dark"
+            onSelect={() => setIsGroupCreateDialogOpen(true)}
+          >
             그룹 생성
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -122,6 +156,30 @@ function TopAppBar() {
           onSuccess={() => {
             refetchMyGroup();
           }}
+        />
+      )}
+
+      <GroupCreateDialog
+        open={isGroupCreateDialogOpen}
+        setOpen={setIsGroupCreateDialogOpen}
+        onSuccess={() => {
+          refetchMyGroup();
+        }}
+      />
+
+      {selectedGroupToUpdate && (
+        <GroupUpdateDialog
+          open={isGroupUpdateDialogOpen}
+          setOpen={setIsGroupUpdateDialogOpen}
+          group={selectedGroupToUpdate}
+        />
+      )}
+
+      {selectedGroupToInfo && (
+        <GroupInfoDialog
+          open={isGroupInfoDialogOpen}
+          setOpen={setIsGroupInfoDialogOpen}
+          group={selectedGroupToInfo}
         />
       )}
     </div>

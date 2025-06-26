@@ -1,26 +1,24 @@
-import { useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { groupQueries } from "@/api/group/queries";
-import type { IJoinGroupRequestDto } from "@/api/group/type";
+import type { IUpdateUserGroupProfileRequestDto } from "@/api/group/type";
 import DialogWrapper from "@/components/common/DialogWrapper";
+import { useCheckDuplicate } from "@/hooks/useCheckDuplicate";
+import { useFormFields } from "@/hooks/useFormFields";
+import type { GroupDialogProps } from "@/type/group";
+import { useMutation } from "@tanstack/react-query";
+import DynamicGroupForm from "./DynamicGroupForm";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useFormFields } from "@/hooks/useFormFields";
-import DynamicGroupForm from "./DynamicGroupForm";
-import { useCheckDuplicate } from "@/hooks/useCheckDuplicate";
-import type { GroupDialogProps } from "@/type/group";
+import { useEffect } from "react";
 
-export default function GroupJoinDialog({
+export default function GroupUpdateDialog({
   open,
   setOpen,
-  onSuccess,
   group,
 }: GroupDialogProps) {
   if (!group) return null;
 
   const { fields, errors, valid, handleFieldChange, reset } = useFormFields([
     "groupUserProfileImage",
-    "inviteCode",
     "groupUserNickname",
   ]);
 
@@ -35,10 +33,12 @@ export default function GroupJoinDialog({
     })
   );
 
-  const { mutate: joinGroup } = useMutation({
-    ...groupQueries.joinGroup(group.groupId, fields as IJoinGroupRequestDto),
+  const { mutate: updateGroup } = useMutation({
+    ...groupQueries.updateUserGroupProfile(
+      group.groupId,
+      fields as IUpdateUserGroupProfileRequestDto
+    ),
     onSuccess: () => {
-      onSuccess?.();
       handleClose();
     },
   });
@@ -65,11 +65,11 @@ export default function GroupJoinDialog({
     <DialogWrapper
       open={open}
       setOpen={handleOpenChange}
-      title={`${group.groupName} 가입`}
-      description="그룹에 가입하려면 아래 정보를 입력하세요."
+      title={`${group.groupName} 프로필 수정`}
+      description="그룹 프로필을 수정하려면 아래 정보를 입력하세요."
     >
       <DynamicGroupForm
-        fields={["groupUserProfileImage", "inviteCode", "groupUserNickname"]}
+        fields={["groupUserProfileImage", "groupUserNickname"]}
         values={fields}
         errors={errors}
         onChange={handleFieldChange}
@@ -88,10 +88,10 @@ export default function GroupJoinDialog({
         </Button>
         <Button
           className="flex-1 py-2 text-base"
-          disabled={!valid.inviteCode || !available}
-          onClick={() => joinGroup()}
+          disabled={!valid.groupUserNickname || !available}
+          onClick={() => updateGroup()}
         >
-          가입하기
+          수정하기
         </Button>
       </DialogFooter>
     </DialogWrapper>

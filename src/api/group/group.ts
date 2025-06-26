@@ -52,6 +52,16 @@ export const checkNickname = async (groupId: number, nickname: string) => {
   return response.data.data;
 };
 
+export const checkGroupName = async (groupName: string) => {
+  const response = await api.get(`/groups/name/check`, {
+    params: {
+      groupName: groupName,
+    },
+  });
+
+  return response.data.data;
+};
+
 export const createGroup = async (data: ICreateGroupRequestDto) => {
   const formData = new FormData();
   formData.append("groupName", data.groupName);
@@ -89,6 +99,12 @@ export const updateUserGroupProfile = async (
       "Content-Type": "multipart/form-data",
     },
   });
+
+  return response.data.data;
+};
+
+export const getUserGroupList = async (groupId: number) => {
+  const response = await api.get(`/groups/${groupId}/nicknames`);
 
   return response.data.data;
 };

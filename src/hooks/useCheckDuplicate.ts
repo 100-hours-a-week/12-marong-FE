@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 
 type CheckDuplicateData = {
   available: boolean;
-  nickname: string;
+  nickname?: string;
+  groupName?: string;
   isFirstTime: boolean;
 };
 

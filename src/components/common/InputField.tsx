@@ -70,7 +70,14 @@ export function InputFieldWithButton({
       </div>
       {error && <p className="text-sm text-red-500 ps-2">{error}</p>}
       {available === true && (
-        <p className="text-sm text-green-500 ps-2">사용 가능한 닉네임입니다.</p>
+        <p className="text-sm text-green-500 ps-2">
+          사용 가능한 {label}입니다.
+        </p>
+      )}
+      {available === false && (
+        <p className="text-sm text-red-500 ps-2">
+          이미 사용 중인 {label}입니다.
+        </p>
       )}
     </div>
   );

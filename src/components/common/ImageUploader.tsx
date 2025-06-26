@@ -1,12 +1,14 @@
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 interface ImageUploaderProps {
+  label?: string;
   onChange: (file: File) => void;
 }
 
-export default function ImageUploader({ onChange }: ImageUploaderProps) {
+export default function ImageUploader({ label, onChange }: ImageUploaderProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +26,7 @@ export default function ImageUploader({ onChange }: ImageUploaderProps) {
 
   return (
     <div className="flex flex-col gap-2">
+      {label && <Label>{label}</Label>}
       <label className="mx-auto rounded-full cursor-pointer size-24">
         <div className="flex overflow-hidden justify-center items-center text-gray-400 rounded-full border cursor-pointer size-full hover:border-brown-dark">
           {previewUrl ? (

@@ -1,6 +1,21 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
-import { checkNickname, getMyGroup, getPublicGroup, joinGroup } from "./group";
-import type { IGroupResponseDto, IJoinGroupRequestDto } from "./type";
+import {
+  checkGroupName,
+  checkNickname,
+  createGroup,
+  getMyGroup,
+  getPublicGroup,
+  getUserGroupList,
+  joinGroup,
+  updateUserGroupProfile,
+} from "./group";
+import type {
+  ICreateGroupRequestDto,
+  IGroupResponseDto,
+  IJoinGroupRequestDto,
+  IUpdateUserGroupProfileRequestDto,
+  IUserGroupListResponseDto,
+} from "./type";
 
 export const groupQueries = {
   all: () => ["group"],
@@ -28,6 +43,25 @@ export const groupQueries = {
     },
   }),
 
+  createGroup: (data: ICreateGroupRequestDto) => ({
+    mutationKey: [...groupQueries.all(), "createGroup"],
+    mutationFn: () => createGroup(data),
+    onError: (error: any) => {
+      groupQueries.onError(error, "그룹 생성 중 오류 발생");
+    },
+  }),
+
+  updateUserGroupProfile: (
+    groupId: number,
+    data: IUpdateUserGroupProfileRequestDto
+  ) => ({
+    mutationKey: [...groupQueries.all(), "updateUserGroupProfile"],
+    mutationFn: () => updateUserGroupProfile(groupId, data),
+    onError: (error: any) => {
+      groupQueries.onError(error, "그룹 정보 수정 중 오류 발생");
+    },
+  }),
+
   checkNickname: ({
     groupId,
     nickname,
@@ -41,6 +75,20 @@ export const groupQueries = {
       groupQueries.onError(error, "닉네임 중복 확인 중 오류 발생");
     },
   }),
+
+  checkGroupName: (groupName: string) => ({
+    mutationKey: [...groupQueries.all(), "checkGroupName"],
+    mutationFn: () => checkGroupName(groupName),
+    onError: (error: any) => {
+      groupQueries.onError(error, "그룹 이름 중복 확인 중 오류 발생");
+    },
+  }),
+
+  getUserGroupList: (groupId: number) =>
+    queryOptions<IUserGroupListResponseDto>({
+      queryKey: [...groupQueries.all(), "userGroupList"],
+      queryFn: () => getUserGroupList(groupId),
+    }),
 
   onError: (error: any, defaultMessage: string) => {
     alert(error?.response?.data?.message || defaultMessage || "오류 발생");

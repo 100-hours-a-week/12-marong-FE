@@ -12,5 +12,7 @@ export const useMyGroup = () => {
 export const usePublicGroup = () => {
   return useInfiniteQuery({
     ...groupQueries.getPublicGroup(),
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 };

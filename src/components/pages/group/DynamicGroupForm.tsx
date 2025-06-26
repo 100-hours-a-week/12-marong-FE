@@ -43,6 +43,7 @@ export default function DynamicGroupForm({
             return (
               <ImageUploader
                 key="groupUserProfileImage"
+                label="프로필 이미지"
                 onChange={(file) => onChange("groupUserProfileImage", file)}
               />
             );
@@ -50,6 +51,7 @@ export default function DynamicGroupForm({
             return (
               <ImageUploader
                 key="groupProfileImage"
+                label="그룹 이미지"
                 onChange={(file) => onChange("groupImage", file)}
               />
             );
@@ -93,6 +95,20 @@ export default function DynamicGroupForm({
                 onCheckDuplicate={onCheckNicknameDuplicate}
                 disableCheck={disableNicknameCheck}
                 available={availableNickname}
+              />
+            );
+          case "groupUserNicknameWithoutCheck":
+            return (
+              <InputField
+                key="groupUserNicknameWithoutCheck"
+                label="닉네임"
+                value={values.groupUserNicknameWithoutCheck as string}
+                error={errors.groupUserNicknameWithoutCheck}
+                onChange={(val) =>
+                  onChange("groupUserNicknameWithoutCheck", val)
+                }
+                maxLength={20}
+                placeholder="닉네임을 입력해주세요."
               />
             );
           default:
