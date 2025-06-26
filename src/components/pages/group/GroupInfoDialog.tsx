@@ -1,5 +1,6 @@
 import { groupQueries } from "@/api/group/queries";
 import DialogWrapper from "@/components/common/DialogWrapper";
+import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import type { GroupDialogProps } from "@/type/group";
@@ -40,9 +41,9 @@ function GroupInfoDialog({ open, setOpen, group }: GroupDialogProps) {
           <span>{group.memberCount}</span>
         </p>
         <Label className="font-bold text-brown-dark">그룹 멤버 목록</Label>
-        <div className="flex flex-col gap-2 max-h-[200px] overflow-y-auto">
+        <div className="flex flex-col gap-3 max-h-[200px] overflow-y-auto border border-gray-300 rounded-md p-2">
           {userGroupList?.nicknames.map((nickname) => (
-            <div key={nickname}>
+            <div key={nickname} className="pb-3 border-b border-gray-100">
               <p>{nickname}</p>
             </div>
           ))}
