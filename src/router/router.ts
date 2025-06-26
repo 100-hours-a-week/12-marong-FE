@@ -6,6 +6,7 @@ import RecommendPage from "@/pages/recommend/RecommendPage";
 import ProfilePage from "@/pages/profile/ProfilePage";
 import LoginPage from "@/pages/login/LoginPage";
 import SurveyPage from "@/pages/survey/SurveyPage";
+import FeedCreatePage from "@/pages/feed/FeedCreate";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: "/profile",
         Component: ProfilePage,
+      },
+      {
+        path: "/feed/create",
+        Component: FeedCreatePage,
       },
     ],
   },

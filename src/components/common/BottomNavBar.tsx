@@ -6,7 +6,7 @@ function BottomNavBar() {
   const navigate = useNavigate();
 
   return (
-    <nav className="flex fixed bottom-0 z-50 justify-around items-center w-full max-w-md h-16 bg-white border-t shadow">
+    <nav className="flex fixed bottom-0 z-50 justify-around items-center w-full max-w-sm h-16 bg-white border-t shadow">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = location.pathname === item.href;

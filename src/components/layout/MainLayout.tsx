@@ -11,11 +11,12 @@ const MainLayout = () => {
 
   return (
     <div className="flex relative flex-col w-full bg-orange-50 min-h-dvh">
-      <div className="flex relative flex-col flex-1 mx-auto w-full max-w-md bg-white">
+      <div className="flex relative flex-col flex-1 mx-auto w-full max-w-sm bg-white">
         {!shouldHideNav && <TopAppBar />}
         <main
           className={`flex flex-col flex-1 w-full h-full ${
-            !shouldHideNav ? "mt-14 mb-16" : ""}`}
+            !shouldHideNav ? "mt-14 mb-16" : ""
+          }`}
         >
           <RequireAuth>
             <Outlet />

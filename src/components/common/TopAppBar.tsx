@@ -45,7 +45,7 @@ function TopAppBar() {
   }, [myGroup]);
 
   return (
-    <div className="flex fixed top-0 z-50 gap-2 items-center px-4 py-2 w-full max-w-md h-14 bg-white shadow">
+    <div className="flex fixed top-0 z-50 gap-2 items-center px-4 py-2 w-full max-w-sm h-14 bg-white shadow">
       {shouldShowBack ? (
         <ArrowLeft
           className="w-5 h-5 cursor-pointer"
