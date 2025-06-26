@@ -1,7 +1,5 @@
 import { groupQueries } from "@/api/group/queries";
 import DialogWrapper from "@/components/common/DialogWrapper";
-import { Button } from "@/components/ui/button";
-import { DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import type { GroupDialogProps } from "@/type/group";
 import { useQuery } from "@tanstack/react-query";
