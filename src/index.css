@@ -1,20 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@plugin "daisyui";
-
 @font-face {
-    font-family: "marong";
-    src: url("./assets/fonts/SejongGeulggot.ttf") format("truetype");
+  font-family: "sejong";
+  src: url("./assets/fonts/SejongGeulggot.ttf") format("truetype");
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
 
 body {
-    margin: 0;
-    font-family: marong, sans-serif;
-    /*-webkit-font-smoothing: antialiased;*/
-    /*-moz-osx-font-smoothing: grayscale;*/
-}
-
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  margin: 0;
+  font-family: "sejong", sans-serif;
 }
