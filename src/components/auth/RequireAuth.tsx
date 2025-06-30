@@ -2,10 +2,11 @@ import { Navigate, useLocation } from "react-router-dom";
 
 const RequireAuth = ({ children }: { children: React.ReactNode }) => {
   const token = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
   const hasCompletedSurvey = localStorage.getItem("hasCompletedSurvey");
   const location = useLocation();
 
-  if (!token && location.pathname !== "/auth") {
+  if (!token && !refreshToken && location.pathname !== "/auth") {
     return <Navigate to="/auth" replace />;
   }
 
