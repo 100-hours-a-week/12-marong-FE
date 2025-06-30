@@ -1,4 +1,5 @@
-import { createBrowserRouter } from "react-router-dom";
+import React from "react";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import HomePage from "@/pages/home/HomePage";
 import MainLayout from "@/components/layout/MainLayout";
 import ManittoPage from "@/pages/manitto/ManittoPage";
@@ -12,10 +13,6 @@ export const router = createBrowserRouter([
   {
     Component: MainLayout,
     children: [
-      {
-        path: "/",
-        Component: HomePage,
-      },
       {
         path: "/auth",
         Component: LoginPage,
@@ -43,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/home/feed/create",
         Component: FeedCreatePage,
+      },
+      {
+        path: "*",
+        element: React.createElement(Navigate, { to: "/home", replace: true }),
       },
     ],
   },
