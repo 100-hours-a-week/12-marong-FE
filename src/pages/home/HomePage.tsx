@@ -4,15 +4,14 @@ import { useGroupStore } from "@/hooks/useGroupContext";
 import {
   useInfiniteQuery,
   useMutation,
-  useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import type { IFeedDto } from "@/api/feed/type";
 import FeedCard from "@/components/pages/feed/FeedCard";
-import { manittoQueries } from "@/api/manitto/queries";
 import { useNavigate } from "react-router-dom";
 import FloatingAddButton from "@/components/common/FloatingAddButton";
+import { useMissionStatus } from "@/hooks/useMission";
 
 function HomePage() {
   const { selectedGroup } = useGroupStore();
@@ -33,9 +32,7 @@ function HomePage() {
     ...feedQueries.getFeeds(selectedGroup.groupId),
   });
 
-  const { data: missionStatus } = useQuery({
-    ...manittoQueries.getMissionStatus(selectedGroup.groupId),
-  });
+  const { data: missionStatus } = useMissionStatus(selectedGroup.groupId);
 
   const { mutate: toggleLike } = useMutation({
     ...feedQueries.toggleLike(selectedGroup.groupId),
@@ -66,7 +63,10 @@ function HomePage() {
   });
 
   const addPost = () => {
-    if (!missionStatus) return;
+    if (!missionStatus) {
+      alert("마니또 매칭 정보가 없습니다.");
+      return;
+    }
 
     const inProgress = missionStatus.missions.inProgress;
 
