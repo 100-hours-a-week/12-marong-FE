@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
         Component: ProfilePage,
       },
       {
-        path: "/feed/create",
+        path: "/home/feed/create",
         Component: FeedCreatePage,
       },
     ],

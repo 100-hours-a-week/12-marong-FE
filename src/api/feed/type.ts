@@ -24,3 +24,10 @@ export interface IToggleLikeDto {
   feedId: number;
   isLiked: boolean;
 }
+
+export interface IUploadFeedRequestDto {
+  groupId: number;
+  missionId: number;
+  content: string;
+  image: File | null;
+}
