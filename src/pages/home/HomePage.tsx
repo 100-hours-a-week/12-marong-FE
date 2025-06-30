@@ -10,7 +10,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import type { IFeedDto } from "@/api/feed/type";
 import FeedCard from "@/components/pages/feed/FeedCard";
 import { useNavigate } from "react-router-dom";
-import FloatingAddButton from "@/components/common/FloatingAddButton";
+import FloatingButton from "@/components/common/FloatingAddButton";
 import { useMissionStatus } from "@/hooks/useMission";
 
 function HomePage() {
@@ -116,7 +116,7 @@ function HomePage() {
         </InfiniteScroll>
       </div>
 
-      <FloatingAddButton onClick={addPost} />
+      <FloatingButton onClick={addPost}>+</FloatingButton>
     </div>
   );
 }

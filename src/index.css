@@ -1,12 +1,14 @@
-
 @font-face {
   font-family: "sejong";
   src: url("./assets/fonts/SejongGeulggot.ttf") format("truetype");
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 body {

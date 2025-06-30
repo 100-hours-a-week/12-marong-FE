@@ -4,7 +4,7 @@ import { useGroupStore } from "@/hooks/useGroupContext";
 import { useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
 import ManittoCard from "@/components/pages/manitto/ManittoCard";
-import CountdownTimer from "@/components/common/CountDownTimer";
+import CountdownTimer from "@/components/common/CountdownTimer";
 import { useMissionStatus } from "@/hooks/useMission";
 import MissionCard from "@/components/pages/manitto/MissionCard";
 import HorizontalProgressBar from "@/components/pages/survey/HorizontalProgressBar";
