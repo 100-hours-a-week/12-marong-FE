@@ -12,6 +12,7 @@ import FeedCard from "@/components/pages/feed/FeedCard";
 import { useNavigate } from "react-router-dom";
 import FloatingButton from "@/components/common/FloatingAddButton";
 import { useMissionStatus } from "@/hooks/useMission";
+import { Plus } from "lucide-react";
 
 function HomePage() {
   const { selectedGroup } = useGroupStore();
@@ -116,7 +117,9 @@ function HomePage() {
         </InfiniteScroll>
       </div>
 
-      <FloatingButton onClick={addPost}>+</FloatingButton>
+      <FloatingButton onClick={addPost}>
+        <Plus />
+      </FloatingButton>
     </div>
   );
 }

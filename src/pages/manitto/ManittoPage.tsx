@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { manittoQueries } from "@/api/manitto/queries";
 import { useGroupStore } from "@/hooks/useGroupContext";
 import { useEffect, useRef } from "react";
@@ -8,6 +8,8 @@ import CountdownTimer from "@/components/common/CountdownTimer";
 import { useMissionStatus } from "@/hooks/useMission";
 import MissionCard from "@/components/pages/manitto/MissionCard";
 import HorizontalProgressBar from "@/components/pages/survey/HorizontalProgressBar";
+import FloatingButton from "@/components/common/FloatingAddButton";
+import { Plus } from "lucide-react";
 
 type Period = "MANITTO_REVEAL" | "MANITTO_ACTIVE";
 
@@ -40,6 +42,13 @@ function ManittoPage() {
   const { data: missionStatus, refetch: refetchMissionStatus } =
     useMissionStatus(selectedGroup.groupId);
 
+  const { mutate: assignNewMission } = useMutation({
+    ...manittoQueries.assignNewMission(selectedGroup.groupId),
+    onSuccess: () => {
+      refetchMissionStatus();
+    },
+  });
+
   const lastRefetchRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -65,8 +74,6 @@ function ManittoPage() {
 
     return () => clearInterval(timer);
   }, [selectedGroup, refetchManittoDetail, refetchMissionStatus]);
-
-  console.log("missionStatus", missionStatus);
 
   return (
     <div className="flex flex-col w-full">
@@ -178,6 +185,14 @@ function ManittoPage() {
           )}
         </div>
       )}
+
+      <FloatingButton
+        onClick={() => {
+          assignNewMission();
+        }}
+      >
+        <Plus />
+      </FloatingButton>
     </div>
   );
 }
