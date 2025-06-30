@@ -111,7 +111,6 @@ const KakaoMap = ({ places }: { places: IPlace[] }) => {
         onClick={() => {
           getCurrentLocation();
         }}
-        className="bg-white text-brown-dark"
       >
         <Locate />
       </FloatingButton>

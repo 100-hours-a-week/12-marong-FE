@@ -1,6 +1,10 @@
-import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
-import { getFeeds, toggleLike } from "./feed";
-import type { IFeedResponseDto, IToggleLikeDto } from "./type";
+import { infiniteQueryOptions } from "@tanstack/react-query";
+import { getFeeds, toggleLike, uploadFeed } from "./feed";
+import type {
+  IFeedResponseDto,
+  IToggleLikeDto,
+  IUploadFeedRequestDto,
+} from "./type";
 
 export const feedQueries = {
   all: () => ["feed"],
@@ -21,4 +25,16 @@ export const feedQueries = {
     mutationFn: ({ feedId, isLiked }: IToggleLikeDto) =>
       toggleLike(feedId, isLiked),
   }),
+
+  uploadFeed: () => ({
+    mutationKey: [...feedQueries.all(), "uploadFeed"],
+    mutationFn: (requestDto: IUploadFeedRequestDto) => uploadFeed(requestDto),
+    onError: (error: any) => {
+      feedQueries.onError(error, "피드 업로드 중 오류 발생");
+    },
+  }),
+
+  onError: (error: any, defaultMessage: string) => {
+    alert(error?.response?.data?.message || defaultMessage || "오류 발생");
+  },
 };

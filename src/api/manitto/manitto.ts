@@ -21,8 +21,10 @@ export const getMissionStatus = async (groupId: number) => {
 };
 
 export const assignNewMission = async (groupId: number) => {
-  const response = await api.post("/manitto/missions/assign", {
-    groupId: groupId,
+  const response = await api.post("/manitto/missions/assign", null, {
+    params: {
+      groupId: groupId,
+    },
   });
 
   return response.data.data;

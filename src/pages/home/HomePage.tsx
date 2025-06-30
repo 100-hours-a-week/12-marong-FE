@@ -75,7 +75,7 @@ function HomePage() {
       alert("진행 중인 미션이 없습니다.");
       return;
     } else {
-      navigate("/feed/create", {
+      navigate("/home/feed/create", {
         state: { mission: inProgress[0], groupId: selectedGroup?.groupId },
       });
     }

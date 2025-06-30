@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { manittoQueries } from "@/api/manitto/queries";
 import { useGroupStore } from "@/hooks/useGroupContext";
-import { useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
 import ManittoCard from "@/components/pages/manitto/ManittoCard";
 import CountdownTimer from "@/components/common/CountdownTimer";
@@ -10,16 +9,6 @@ import MissionCard from "@/components/pages/manitto/MissionCard";
 import HorizontalProgressBar from "@/components/pages/survey/HorizontalProgressBar";
 import FloatingButton from "@/components/common/FloatingAddButton";
 import { Plus } from "lucide-react";
-
-type Period = "MANITTO_REVEAL" | "MANITTO_ACTIVE";
-
-function isRefetchTime() {
-  const now = new Date();
-  const day = now.getDay();
-  const hour = now.getHours();
-
-  return (day === 1 && hour === 12) || (day === 5 && hour === 17);
-}
 
 function ManittoPage() {
   const { selectedGroup } = useGroupStore();
@@ -34,7 +23,7 @@ function ManittoPage() {
     );
   }
 
-  const { data: manittoDetail, refetch: refetchManittoDetail } = useQuery({
+  const { data: manittoDetail } = useQuery({
     ...manittoQueries.getManittoDetail(selectedGroup.groupId),
     staleTime: Infinity,
     gcTime: Infinity,
@@ -48,32 +37,6 @@ function ManittoPage() {
       refetchMissionStatus();
     },
   });
-
-  const lastRefetchRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (!selectedGroup) return;
-
-    const checkAndRefetch = () => {
-      const now = new Date();
-      if (isRefetchTime()) {
-        const nowDay = now.getDate();
-        if (lastRefetchRef.current !== nowDay) {
-          refetchManittoDetail();
-          refetchMissionStatus();
-          lastRefetchRef.current = nowDay;
-        }
-      } else {
-        lastRefetchRef.current = null;
-      }
-    };
-
-    checkAndRefetch();
-
-    const timer = setInterval(checkAndRefetch, 60 * 1000);
-
-    return () => clearInterval(timer);
-  }, [selectedGroup, refetchManittoDetail, refetchMissionStatus]);
 
   return (
     <div className="flex flex-col w-full">
@@ -157,7 +120,11 @@ function ManittoPage() {
                 진행 중인 미션
               </Label>
               {missionStatus.missions.inProgress.map((mission) => (
-                <MissionCard key={mission.missionId} mission={mission} />
+                <MissionCard
+                  key={mission.missionId}
+                  mission={mission}
+                  className="border-brown-dark/50"
+                />
               ))}
             </>
           )}
@@ -168,7 +135,11 @@ function ManittoPage() {
                 완료한 미션
               </Label>
               {missionStatus.missions.completed.map((mission) => (
-                <MissionCard key={mission.missionId} mission={mission} />
+                <MissionCard
+                  key={mission.missionId}
+                  mission={mission}
+                  className="border-brown"
+                />
               ))}
             </>
           )}
@@ -176,10 +147,14 @@ function ManittoPage() {
           {missionStatus.missions.incomplete.length > 0 && (
             <>
               <Label className="text-lg font-bold text-brown-dark">
-                미션 미완료
+                미완료 미션
               </Label>
               {missionStatus.missions.incomplete.map((mission) => (
-                <MissionCard key={mission.missionId} mission={mission} />
+                <MissionCard
+                  key={mission.missionId}
+                  mission={mission}
+                  className="opacity-50"
+                />
               ))}
             </>
           )}

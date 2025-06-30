@@ -72,7 +72,7 @@ function FeedCard({
       </div>
 
       <ElapsedTimeText
-        className="px-2 text-xs text-gray-500 text-start"
+        className="px-2 pb-2 text-xs text-gray-500 text-start"
         createdDate={feed.createdAt}
       />
     </div>
