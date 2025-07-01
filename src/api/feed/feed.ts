@@ -13,7 +13,6 @@ export const getFeeds = async (groupId: number, page: number) => {
 };
 
 export const toggleLike = async (feedId: number, isLiked: boolean) => {
-  console.log(feedId, isLiked);
   const response = await api.post(`/feeds/${feedId}/likes`, {
     cancel: isLiked,
   });

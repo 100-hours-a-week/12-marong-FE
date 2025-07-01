@@ -4,15 +4,17 @@ import BottomNavBar from "../common/BottomNavBar";
 import RequireAuth from "../auth/RequireAuth";
 
 const HIDE_NAV_PATHS = ["/auth", "/survey"];
+const HIDE_TOP_PATHS = ["/auth"];
 
 const MainLayout = () => {
   const location = useLocation();
   const shouldHideNav = HIDE_NAV_PATHS.includes(location.pathname);
+  const shouldHideTop = HIDE_TOP_PATHS.includes(location.pathname);
 
   return (
     <div className="flex relative flex-col w-full bg-orange-50 min-h-dvh">
       <div className="flex relative flex-col flex-1 mx-auto w-full max-w-sm bg-white">
-        {!shouldHideNav && <TopAppBar />}
+        {!shouldHideTop && <TopAppBar />}
         <main
           className={`flex flex-col flex-1 w-full h-full ${
             !shouldHideNav ? "mt-14 mb-16" : ""

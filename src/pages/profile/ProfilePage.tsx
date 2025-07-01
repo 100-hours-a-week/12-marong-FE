@@ -33,8 +33,6 @@ function ProfilePage() {
     ...groupQueries.getAllGroupProfiles(),
   });
 
-  console.log(allGroupProfiles);
-
   const mbtiKeys = [
     { key: "eiScore", pair: ["I", "E"] },
     { key: "snScore", pair: ["S", "N"] },

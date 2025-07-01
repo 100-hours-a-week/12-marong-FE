@@ -13,7 +13,6 @@ function SurveyMBTI({
   onNext: () => void;
 }) {
   const handleChange = (name: string, value: number) => {
-    console.log(name, value);
     onUpdate({
       ...data,
       [name]: value,

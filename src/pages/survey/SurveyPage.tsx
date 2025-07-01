@@ -17,8 +17,6 @@ function SurveyPage() {
   const fromProfile = location.state?.fromProfile;
   const surveyData = location.state?.surveyData;
 
-  console.log(surveyData);
-
   useEffect(() => {
     if (fromAuth !== true && fromProfile !== true) {
       navigate("/home");
@@ -35,10 +33,6 @@ function SurveyPage() {
     likedFoods: surveyData?.likedFoods || [],
     dislikedFoods: surveyData?.dislikedFoods || [],
   });
-
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
 
   const { mutate: saveSurvey } = useMutation({
     ...surveyQueries.saveSurvey({ navigate }),

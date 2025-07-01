@@ -9,7 +9,7 @@ function BottomNavBar() {
     <nav className="flex fixed bottom-0 z-50 justify-around items-center w-full max-w-sm h-16 bg-white border-t shadow">
       {navItems.map((item) => {
         const Icon = item.icon;
-        const isActive = location.pathname === item.href;
+        const isActive = location.pathname.startsWith(item.href);
         return (
           <button
             key={item.name}
