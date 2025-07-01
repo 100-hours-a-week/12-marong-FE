@@ -108,3 +108,9 @@ export const getUserGroupList = async (groupId: number) => {
 
   return response.data.data;
 };
+
+export const getAllGroupProfiles = async () => {
+  const response = await api.get("/groups/profiles");
+
+  return response.data.data;
+};

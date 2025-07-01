@@ -7,14 +7,16 @@ function ManittoCard({
   description,
   name,
 }: {
-  title: string;
+  title?: string;
   imageUrl?: string;
   description: string;
   name: string;
 }) {
   return (
     <div className="flex flex-col gap-4 p-4 w-full border-b">
-      <Label className="text-lg font-bold text-brown-dark">{title}</Label>
+      {title && (
+        <Label className="text-lg font-bold text-brown-dark">{title}</Label>
+      )}
 
       <div className="flex flex-row gap-4 items-center">
         <img

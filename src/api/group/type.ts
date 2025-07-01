@@ -34,3 +34,19 @@ export interface IUserGroupListResponseDto {
   nicknames: string[];
   count: number;
 }
+
+export interface IGroupProfileResponseDto {
+  groupId: number;
+  groupName: string;
+  groupImageUrl: string;
+  memberCount: number;
+  myNickname: string;
+  myProfileImageUrl: string;
+  joinedAt: string;
+  isOwner: boolean;
+}
+
+export interface IGroupProfilesResponseDto {
+  profiles: IGroupProfileResponseDto[];
+  totalCount: number;
+}

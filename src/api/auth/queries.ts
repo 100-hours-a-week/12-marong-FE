@@ -1,6 +1,7 @@
 import type { NavigateFunction } from "react-router-dom";
-import { kakaoLogin } from "./auth";
-import type { IKakaoLoginResponse } from "./type";
+import { getUserInfo, kakaoLogin } from "./auth";
+import type { IKakaoLoginResponse, IUserInfo } from "./type";
+import { queryOptions } from "@tanstack/react-query";
 
 export const authQueries = {
   all: () => ["auth"],
@@ -27,4 +28,10 @@ export const authQueries = {
       alert("로그인에 실패했습니다. 다시 시도해주세요.");
     },
   }),
+
+  getUserInfo: () =>
+    queryOptions<IUserInfo>({
+      queryKey: [...authQueries.all(), "getUserInfo"],
+      queryFn: getUserInfo,
+    }),
 };

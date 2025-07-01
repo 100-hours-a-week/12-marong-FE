@@ -9,9 +9,19 @@
 }
 
 @theme {
-  --color-brown: #967E76;
+  --color-brown: #967e76;
   --color-brown-light: #c7b199;
-  --color-brown-dark: #7C5B4F;
+  --color-brown-dark: #7c5b4f;
+  --color-brown-50: #f5f2f1;
+  --color-brown-100: #e3ddd9;
+  --color-brown-200: #cfc2ba;
+  --color-brown-300: #b89e8e;
+  --color-brown-400: #a9887b;
+  --color-brown-500: #967e76;
+  --color-brown-600: #80665f;
+  --color-brown-700: #6a524b;
+  --color-brown-800: #55403a;
+  --color-brown-900: #392720;
 }
 
 @theme inline {
