@@ -12,3 +12,11 @@ export interface IKakaoLoginResponse {
   isNewUser: boolean;
   user: IUser;
 }
+
+export interface IUserInfo {
+  userId: number;
+  kakaoName: string;
+  profileImage: string;
+  hasCompletedSurvey: boolean;
+  hasKakaotechGroupNickname: boolean;
+}

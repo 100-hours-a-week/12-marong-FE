@@ -3,6 +3,7 @@ import {
   checkGroupName,
   checkNickname,
   createGroup,
+  getAllGroupProfiles,
   getMyGroup,
   getPublicGroup,
   getUserGroupList,
@@ -11,6 +12,7 @@ import {
 } from "./group";
 import type {
   ICreateGroupRequestDto,
+  IGroupProfilesResponseDto,
   IGroupResponseDto,
   IJoinGroupRequestDto,
   IUpdateUserGroupProfileRequestDto,
@@ -88,6 +90,12 @@ export const groupQueries = {
     queryOptions<IUserGroupListResponseDto>({
       queryKey: [...groupQueries.all(), "userGroupList"],
       queryFn: () => getUserGroupList(groupId),
+    }),
+
+  getAllGroupProfiles: () =>
+    queryOptions<IGroupProfilesResponseDto>({
+      queryKey: [...groupQueries.all(), "allGroupProfiles"],
+      queryFn: getAllGroupProfiles,
     }),
 
   onError: (error: any, defaultMessage: string) => {

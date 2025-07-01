@@ -6,3 +6,9 @@ export const saveSurvey = async (data: ISurveyRequest) => {
 
   return response.data;
 };
+
+export const getSurvey = async () => {
+  const response = await api.get("/survey");
+
+  return response.data.data;
+};

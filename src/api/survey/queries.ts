@@ -1,6 +1,7 @@
 import type { NavigateFunction } from "react-router-dom";
-import { saveSurvey } from "./survey";
-import type { ISurveyRequest } from "./type";
+import { getSurvey, saveSurvey } from "./survey";
+import type { ISurveyRequest, ISurveyResponse } from "./type";
+import { queryOptions } from "@tanstack/react-query";
 
 export const surveyQueries = {
   all: () => ["survey"],
@@ -17,4 +18,10 @@ export const surveyQueries = {
       alert("설문 저장에 실패했습니다. 다시 시도해주세요.");
     },
   }),
+
+  getSurvey: () =>
+    queryOptions<ISurveyResponse>({
+      queryKey: [...surveyQueries.all(), "getSurvey"],
+      queryFn: getSurvey,
+    }),
 };
