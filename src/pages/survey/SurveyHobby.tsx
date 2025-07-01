@@ -3,6 +3,17 @@ import HorizontalProgressBar from "@/components/pages/survey/HorizontalProgressB
 import { useRef, useState } from "react";
 import type { ISurveyRequest } from "@/api/survey/type";
 
+const defaultHobbies = [
+  "운동",
+  "독서",
+  "음악 감상",
+  "여행",
+  "게임",
+  "요리",
+  "OTT 시청",
+  "문화생활",
+];
+
 function SurveyHobby({
   data,
   onUpdate,
@@ -14,16 +25,9 @@ function SurveyHobby({
   onPrev: () => void;
   onNext: () => void;
 }) {
-  const [hobbies, setHobbies] = useState([
-    "운동",
-    "독서",
-    "음악 감상",
-    "여행",
-    "게임",
-    "요리",
-    "OTT 시청",
-    "문화생활",
-  ]);
+  const [hobbies, setHobbies] = useState(
+    Array.from(new Set([...defaultHobbies, ...(data.hobbies || [])]))
+  );
 
   const inputRef = useRef(null);
   const [selected, setSelected] = useState(data.hobbies);

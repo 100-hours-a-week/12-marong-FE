@@ -12,8 +12,11 @@ import GroupCard from "@/components/pages/group/GroupCard";
 import { useState } from "react";
 import type { IGroupResponseDto } from "@/api/group/type";
 import GroupInfoDialog from "@/components/pages/group/GroupInfoDialog";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
+  const navigate = useNavigate();
+
   const [selectedGroupToInfo, setSelectedGroupToInfo] =
     useState<IGroupResponseDto | null>(null);
   const [isGroupInfoDialogOpen, setIsGroupInfoDialogOpen] = useState(false);
@@ -53,7 +56,19 @@ function ProfilePage() {
       <Card>
         <CardHeader>
           <CardTitle className="flex gap-2 items-center text-lg">
-            설문 조사 결과
+            <div className="flex justify-between items-center w-full">
+              설문 조사 결과
+              <Label
+                className="text-sm text-gray-500 cursor-pointer"
+                onClick={() => {
+                  navigate("/survey", {
+                    state: { fromProfile: true, surveyData },
+                  });
+                }}
+              >
+                수정하기 {">"}{" "}
+              </Label>
+            </div>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -137,6 +152,7 @@ function ProfilePage() {
         <CardContent>
           <div className="flex flex-col gap-2">
             <Label className="text-lg font-bold">내 그룹</Label>
+
             {allGroupProfiles?.profiles.map((group) => (
               <GroupCard
                 key={group.groupId}

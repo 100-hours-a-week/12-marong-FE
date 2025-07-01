@@ -18,7 +18,7 @@ export const authQueries = {
       );
 
       if (!data.user.hasCompletedSurvey) {
-        navigate("/survey");
+        navigate("/survey", { state: { fromAuth: true } });
       } else {
         navigate("/home");
       }

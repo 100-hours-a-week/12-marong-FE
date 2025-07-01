@@ -3,6 +3,10 @@ import HorizontalProgressBar from "@/components/pages/survey/HorizontalProgressB
 import { useRef, useState } from "react";
 import type { ISurveyRequest } from "@/api/survey/type";
 
+const defaultLikedFoods = ["한식", "중식", "일식", "양식", "채식", "해산물"];
+
+const defaultDislikedFoods = ["한식", "중식", "일식", "양식", "채식", "해산물"];
+
 function SurveyFood({
   data,
   onUpdate,
@@ -15,22 +19,14 @@ function SurveyFood({
   onNext: () => void;
 }) {
   const inputRef = useRef(null);
-  const [likedFood, setLikedFood] = useState([
-    "한식",
-    "중식",
-    "일식",
-    "양식",
-    "채식",
-    "해산물",
-  ]);
-  const [dislikedFood, setDislikedFood] = useState([
-    "한식",
-    "중식",
-    "일식",
-    "양식",
-    "채식",
-    "해산물",
-  ]);
+  const [likedFood, setLikedFood] = useState(
+    Array.from(new Set([...defaultLikedFoods, ...(data.likedFoods || [])]))
+  );
+  const [dislikedFood, setDislikedFood] = useState(
+    Array.from(
+      new Set([...defaultDislikedFoods, ...(data.dislikedFoods || [])])
+    )
+  );
 
   const [selectedLiked, setSelectedLiked] = useState(data.likedFoods || []);
   const [selectedDisliked, setSelectedDisliked] = useState(

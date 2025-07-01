@@ -7,6 +7,12 @@ export const saveSurvey = async (data: ISurveyRequest) => {
   return response.data;
 };
 
+export const updateSurvey = async (data: ISurveyRequest) => {
+  const response = await api.put("/survey", data);
+
+  return response.data;
+};
+
 export const getSurvey = async () => {
   const response = await api.get("/survey");
 

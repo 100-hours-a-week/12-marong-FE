@@ -5,31 +5,47 @@ import SurveyHobby from "./SurveyHobby";
 import SurveyFood from "./SurveyFood";
 import { useMutation } from "@tanstack/react-query";
 import { surveyQueries } from "@/api/survey/queries";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { ISurveyRequest } from "@/api/survey/type";
 
 function SurveyPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   useNavigateBlocker();
+
+  const fromAuth = location.state?.fromAuth;
+  const fromProfile = location.state?.fromProfile;
+  const surveyData = location.state?.surveyData;
+
+  console.log(surveyData);
+
+  useEffect(() => {
+    if (fromAuth !== true && fromProfile !== true) {
+      navigate("/home");
+    }
+  }, [fromAuth, fromProfile]);
 
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<ISurveyRequest>({
-    eiScore: 50,
-    snScore: 50,
-    tfScore: 50,
-    jpScore: 50,
-    hobbies: [],
-    likedFoods: [],
-    dislikedFoods: [],
+    eiScore: surveyData?.eiScore || 50,
+    snScore: surveyData?.snScore || 50,
+    tfScore: surveyData?.tfScore || 50,
+    jpScore: surveyData?.jpScore || 50,
+    hobbies: surveyData?.hobbies || [],
+    likedFoods: surveyData?.likedFoods || [],
+    dislikedFoods: surveyData?.dislikedFoods || [],
   });
 
   useEffect(() => {
     console.log(formData);
   }, [formData]);
 
-  const { mutate: saveSurvey } = useMutation(
-    surveyQueries.saveSurvey({ navigate })
-  );
+  const { mutate: saveSurvey } = useMutation({
+    ...surveyQueries.saveSurvey({ navigate }),
+  });
+  const { mutate: updateSurvey } = useMutation({
+    ...surveyQueries.updateSurvey({ navigate }),
+  });
 
   const next = () => setStep((s) => s + 1);
   const prev = () => setStep((s) => s - 1);
@@ -37,7 +53,11 @@ function SurveyPage() {
   const handleSubmit = (finalFormData: any) => {
     const dataToSend = finalFormData || formData;
 
-    saveSurvey(dataToSend);
+    if (fromProfile) {
+      updateSurvey(dataToSend);
+    } else {
+      saveSurvey(dataToSend);
+    }
   };
 
   useEffect(() => {

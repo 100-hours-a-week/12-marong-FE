@@ -1,5 +1,5 @@
 import type { NavigateFunction } from "react-router-dom";
-import { getSurvey, saveSurvey } from "./survey";
+import { getSurvey, saveSurvey, updateSurvey } from "./survey";
 import type { ISurveyRequest, ISurveyResponse } from "./type";
 import { queryOptions } from "@tanstack/react-query";
 
@@ -13,9 +13,19 @@ export const surveyQueries = {
       localStorage.setItem("hasCompletedSurvey", "true");
       navigate("/home");
     },
-    onError: (error: Error) => {
-      console.error("Save Survey Error:", error);
-      alert("설문 저장에 실패했습니다. 다시 시도해주세요.");
+    onError: (error: any) => {
+      surveyQueries.onError(error, "설문 저장에 실패했습니다.");
+    },
+  }),
+
+  updateSurvey: ({ navigate }: { navigate: NavigateFunction }) => ({
+    mutationKey: [...surveyQueries.all(), "updateSurvey"],
+    mutationFn: (data: ISurveyRequest) => updateSurvey(data),
+    onSuccess: () => {
+      navigate(-1);
+    },
+    onError: (error: any) => {
+      surveyQueries.onError(error, "설문 수정에 실패했습니다.");
     },
   }),
 
@@ -24,4 +34,8 @@ export const surveyQueries = {
       queryKey: [...surveyQueries.all(), "getSurvey"],
       queryFn: getSurvey,
     }),
+
+  onError: (error: any, defaultMessage: string) => {
+    alert(error?.response?.data?.message || defaultMessage || "오류 발생");
+  },
 };
