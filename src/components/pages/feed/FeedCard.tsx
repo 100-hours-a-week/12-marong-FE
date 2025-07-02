@@ -1,8 +1,9 @@
 import type { IFeedDto } from "@/api/feed/type";
 import defaultProfile from "@/assets/default_profile.png";
 import { Label } from "@/components/ui/label";
-import { Ellipsis, Heart } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import ElapsedTimeText from "@/components/common/ElapsedTimeText";
+import Marong from "@/assets/Marong";
 
 function FeedCard({
   feed,
@@ -57,7 +58,7 @@ function FeedCard({
         </div>
 
         <div className="justify-center items-center ps-4 pe-2">
-          <Heart
+          {/* <Heart
             size={24}
             fill={feed.isLiked ? "#FF8FA3" : "none"}
             stroke={feed.isLiked ? "#FF8FA3" : "#D3D3D3"}
@@ -65,6 +66,13 @@ function FeedCard({
               toggleLike({ feedId: feed.feedId, isLiked: feed.isLiked });
             }}
             className="cursor-pointer"
+          /> */}
+          <Marong
+            className="cursor-pointer size-6"
+            fill={feed.isLiked ? "#915118" : "none"}
+            onClick={() => {
+              toggleLike({ feedId: feed.feedId, isLiked: feed.isLiked });
+            }}
           />
 
           <div className="text-xs text-center">{feed.likes}</div>

@@ -16,6 +16,7 @@ import GroupJoinDialog from "@/components/pages/group/GroupJoinDialog";
 import GroupCreateDialog from "../pages/group/GroupCreateDialog";
 import GroupUpdateDialog from "../pages/group/GroupUpdateDialog";
 import GroupInfoDialog from "../pages/group/GroupInfoDialog";
+import Marong from "@/assets/Marong";
 
 function TopAppBar() {
   const location = useLocation();
@@ -53,7 +54,8 @@ function TopAppBar() {
           onClick={() => window.history.back()}
         />
       ) : (
-        <img src="/logo.png" alt="logo" className="h-full" />
+        // <img src="/logo.png" alt="logo" className="h-full" />
+        <Marong className="size-10" fill="#915118" />
       )}
 
       {!shouldShowBack ? (

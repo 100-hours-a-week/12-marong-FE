@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import KakaoLoginButton from "@/components/pages/login/KakaoLoginButton";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import LogoImage from "@/assets/logo.png";
+// import Marong from "@/assets/Marong";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ function LoginPage() {
           alt="Logo Image"
           className="object-contain w-full h-full"
         />
+        {/* <Marong className="size-32" fill="#915118" /> */}
       </div>
 
       <div className="mb-20 space-y-2 text-center">
