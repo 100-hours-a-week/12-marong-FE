@@ -114,3 +114,9 @@ export const getAllGroupProfiles = async () => {
 
   return response.data.data;
 };
+
+export const leaveGroup = async (groupId: number) => {
+  const response = await api.delete(`/groups/${groupId}/leave`);
+
+  return response.data.data;
+};

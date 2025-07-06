@@ -69,7 +69,7 @@ function FeedCard({
           /> */}
           <Marong
             className="cursor-pointer size-6"
-            fill={feed.isLiked ? "#915118" : "none"}
+            fill={feed.isLiked ? "#915118" : "#D3D3D3"}
             onClick={() => {
               toggleLike({ feedId: feed.feedId, isLiked: feed.isLiked });
             }}

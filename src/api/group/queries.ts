@@ -8,6 +8,7 @@ import {
   getPublicGroup,
   getUserGroupList,
   joinGroup,
+  leaveGroup,
   updateUserGroupProfile,
 } from "./group";
 import type {
@@ -97,6 +98,14 @@ export const groupQueries = {
       queryKey: [...groupQueries.all(), "allGroupProfiles"],
       queryFn: getAllGroupProfiles,
     }),
+
+  leaveGroup: () => ({
+    mutationKey: [...groupQueries.all(), "leaveGroup"],
+    mutationFn: (groupId: number) => leaveGroup(groupId),
+    onError: (error: any) => {
+      groupQueries.onError(error, "그룹 탈퇴 중 오류 발생");
+    },
+  }),
 
   onError: (error: any, defaultMessage: string) => {
     alert(error?.response?.data?.message || defaultMessage || "오류 발생");

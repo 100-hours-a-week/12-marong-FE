@@ -10,6 +10,8 @@ function GroupInfoDialog({ open, setOpen, group }: GroupDialogProps) {
 
   const { data: userGroupList, refetch } = useQuery({
     ...groupQueries.getUserGroupList(group.groupId),
+    gcTime: Infinity,
+    staleTime: Infinity,
   });
 
   useEffect(() => {
@@ -30,10 +32,12 @@ function GroupInfoDialog({ open, setOpen, group }: GroupDialogProps) {
           <Label className="font-bold text-brown-dark">그룹 이름</Label>
           <span>{group.groupName}</span>
         </p>
-        <p className="flex gap-2 items-center">
-          <Label className="font-bold text-brown-dark">그룹 설명</Label>
-          <span>{group.description || "없음"}</span>
-        </p>
+        {"description" in group && (
+          <p className="flex gap-2 items-center">
+            <Label className="font-bold text-brown-dark">그룹 설명</Label>
+            <span>{group.description || "없음"}</span>
+          </p>
+        )}
         <p className="flex gap-2 items-center">
           <Label className="font-bold text-brown-dark">그룹 소속 인원</Label>
           <span>{group.memberCount}</span>

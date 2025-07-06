@@ -10,27 +10,73 @@ import { Label } from "@/components/ui/label";
 import { groupQueries } from "@/api/group/queries";
 import GroupCard from "@/components/pages/group/GroupCard";
 import { useState } from "react";
-import type { IGroupResponseDto } from "@/api/group/type";
+import type { IGroupProfileResponseDto } from "@/api/group/type";
 import GroupInfoDialog from "@/components/pages/group/GroupInfoDialog";
 import { useNavigate } from "react-router-dom";
+import GroupUpdateDialog from "@/components/pages/group/GroupUpdateDialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useMyGroup } from "@/hooks/useGroup";
+import { useGroupStore } from "@/hooks/useGroupContext";
 
 function ProfilePage() {
   const navigate = useNavigate();
 
   const [selectedGroupToInfo, setSelectedGroupToInfo] =
-    useState<IGroupResponseDto | null>(null);
+    useState<IGroupProfileResponseDto | null>(null);
   const [isGroupInfoDialogOpen, setIsGroupInfoDialogOpen] = useState(false);
+  const [selectedGroupToUpdate, setSelectedGroupToUpdate] =
+    useState<IGroupProfileResponseDto | null>(null);
+  const [isGroupUpdateDialogOpen, setIsGroupUpdateDialogOpen] = useState(false);
+  const [selectedGroupToLeave, setSelectedGroupToLeave] =
+    useState<IGroupProfileResponseDto | null>(null);
+  const [isGroupLeaveDialogOpen, setIsGroupLeaveDialogOpen] = useState(false);
+
+  const { refetch: refetchMyGroup } = useMyGroup();
+  const { selectedGroup, setSelectedGroup } = useGroupStore();
 
   const { data: userInfo } = useQuery({
     ...authQueries.getUserInfo(),
+    gcTime: Infinity,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   });
 
   const { data: surveyData } = useQuery({
     ...surveyQueries.getSurvey(),
   });
 
-  const { data: allGroupProfiles } = useQuery({
-    ...groupQueries.getAllGroupProfiles(),
+  const { data: allGroupProfiles, refetch: refetchAllGroupProfiles } = useQuery(
+    {
+      ...groupQueries.getAllGroupProfiles(),
+      gcTime: Infinity,
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+    }
+  );
+
+  const { mutate: leaveGroup } = useMutation({
+    ...groupQueries.leaveGroup(),
+    onSuccess: () => {
+      refetchAllGroupProfiles();
+      refetchMyGroup();
+      if (selectedGroup?.groupId === selectedGroupToLeave?.groupId) {
+        setSelectedGroup(null);
+      }
+    },
   });
 
   const mbtiKeys = [
@@ -158,7 +204,18 @@ function ProfilePage() {
                 description={group.groupName}
                 name={group.myNickname}
                 isOwner={group.isOwner}
-                onClick={() => {}}
+                onInfo={() => {
+                  setSelectedGroupToInfo(group);
+                  setIsGroupInfoDialogOpen(true);
+                }}
+                onUpdate={() => {
+                  setSelectedGroupToUpdate(group);
+                  setIsGroupUpdateDialogOpen(true);
+                }}
+                onLeave={() => {
+                  setSelectedGroupToLeave(group);
+                  setIsGroupLeaveDialogOpen(true);
+                }}
               />
             ))}
           </div>
@@ -171,6 +228,43 @@ function ProfilePage() {
           setOpen={setIsGroupInfoDialogOpen}
           group={selectedGroupToInfo}
         />
+      )}
+
+      {selectedGroupToUpdate && (
+        <GroupUpdateDialog
+          open={isGroupUpdateDialogOpen}
+          setOpen={setIsGroupUpdateDialogOpen}
+          group={selectedGroupToUpdate}
+        />
+      )}
+
+      {selectedGroupToLeave && (
+        <AlertDialog
+          open={isGroupLeaveDialogOpen}
+          onOpenChange={setIsGroupLeaveDialogOpen}
+        >
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                그룹 {selectedGroupToLeave.groupName} 탈퇴
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                정말 그룹을 탈퇴하시겠습니까?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>취소</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  leaveGroup(selectedGroupToLeave.groupId);
+                  setIsGroupLeaveDialogOpen(false);
+                }}
+              >
+                탈퇴
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       )}
     </div>
   );
