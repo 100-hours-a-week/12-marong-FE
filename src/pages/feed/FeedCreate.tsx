@@ -1,4 +1,4 @@
-import MissionCard from "@/components/pages/manitto/MissionCard";
+import MissionCard from "@/components/pages/mission/MissionCard";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useMutation } from "@tanstack/react-query";
 import { feedQueries } from "@/api/feed/queries";
 import LoadingScreen from "@/components/common/LoadingScreen";
+import { useMissionStatus } from "@/hooks/useMission";
 
 function FeedCreatePage() {
   const navigate = useNavigate();
@@ -15,9 +16,12 @@ function FeedCreatePage() {
   const [uploadImg, setUploadImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
 
+  const { refetch: refetchMissionStatus } = useMissionStatus(state.groupId);
+
   const { mutate: uploadFeed, isPending } = useMutation({
     ...feedQueries.uploadFeed(),
     onSuccess: () => {
+      refetchMissionStatus();
       navigate("/home");
     },
   });

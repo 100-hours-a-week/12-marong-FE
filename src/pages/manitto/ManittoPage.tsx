@@ -5,13 +5,17 @@ import { Label } from "@/components/ui/label";
 import ManittoCard from "@/components/pages/manitto/ManittoCard";
 import CountdownTimer from "@/components/common/CountdownTimer";
 import { useMissionStatus } from "@/hooks/useMission";
-import MissionCard from "@/components/pages/manitto/MissionCard";
+import MissionCard from "@/components/pages/mission/MissionCard";
 import HorizontalProgressBar from "@/components/pages/survey/HorizontalProgressBar";
 import FloatingButton from "@/components/common/FloatingAddButton";
 import { Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useAvailableMission } from "@/hooks/useAvailableMission";
+import MissionDrawer from "@/components/pages/mission/MissionDrawer";
 
 function ManittoPage() {
   const { selectedGroup } = useGroupStore();
+  const [isMissionDrawerOpen, setIsMissionDrawerOpen] = useState(false);
 
   if (!selectedGroup) {
     return (
@@ -37,6 +41,10 @@ function ManittoPage() {
       refetchMissionStatus();
     },
   });
+
+  // const { data: availableMissionData } = useAvailableMission(
+  //   selectedGroup.groupId
+  // );
 
   return (
     <div className="flex flex-col w-full">
@@ -163,11 +171,17 @@ function ManittoPage() {
 
       <FloatingButton
         onClick={() => {
-          assignNewMission();
+          setIsMissionDrawerOpen(true);
         }}
       >
         <Plus />
       </FloatingButton>
+
+      <MissionDrawer
+        open={isMissionDrawerOpen}
+        setOpen={setIsMissionDrawerOpen}
+        groupId={selectedGroup.groupId}
+      />
     </div>
   );
 }
