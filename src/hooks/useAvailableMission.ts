@@ -9,6 +9,6 @@ export const useAvailableMission = (groupId: number) => {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-    refetchInterval: 60 * 1000,
+    // refetchInterval: 60 * 1000,
   });
 };
