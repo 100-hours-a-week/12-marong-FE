@@ -19,7 +19,7 @@ function FeedCard({
   }) => void;
 }) {
   return (
-    <div className="flex flex-col py-2 border-b max-w-sm">
+    <div className="flex flex-col py-2 border-b">
       <div className="flex flex-row justify-between items-center">
         <div className="flex gap-3 items-center py-2">
           <img
@@ -52,7 +52,7 @@ function FeedCard({
       <div className="flex justify-between pt-4 pb-2 ps-2">
         <div className="flex flex-col gap-1 pe-4">
           {/* <Label className="text-sm font-bold text-start">{feed.author}</Label> */}
-          <Label className="text-sm text-gray-700 text-start break-keep">
+          <Label className="text-sm text-gray-700 text-start break-all">
             {feed.content}
           </Label>
         </div>
