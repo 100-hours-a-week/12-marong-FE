@@ -44,7 +44,10 @@ function FeedCard({
           <img
             src={feed.imageUrl}
             alt="Feed"
-            className="w-full h-auto rounded-lg"
+            className="w-full h-auto rounded-lg cursor-pointer"
+            onClick={() => {
+              window.open(feed.imageUrl, "_blank");
+            }}
           />
         )}
       </div>
