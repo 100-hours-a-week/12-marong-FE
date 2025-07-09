@@ -19,7 +19,7 @@ function FeedCard({
   }) => void;
 }) {
   return (
-    <div className="flex flex-col py-2 border-b">
+    <div className="flex flex-col py-2 border-b max-w-sm">
       <div className="flex flex-row justify-between items-center">
         <div className="flex gap-3 items-center py-2">
           <img
