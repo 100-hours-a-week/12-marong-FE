@@ -41,7 +41,7 @@ export default function ImageUploader({ label, onChange }: ImageUploaderProps) {
         </div>
         <Input
           type="file"
-          accept="image/*"
+          accept="image/jpeg, image/png, image/gif, image/webp"
           className="hidden"
           onChange={handleChange}
         />
