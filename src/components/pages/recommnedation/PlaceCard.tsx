@@ -25,7 +25,7 @@ function PlaceCard({
       <div className="text-start text-[0.8rem]">{place.category}</div>
       <div className="text-xs text-gray-500 text-start">{place.hours}</div>
       <div className="text-xs text-gray-500 text-start">{place.address}</div>
-      <div className="flex justify-end">
+      <div className="flex justify-end items-end flex-1">
         {/* <Heart
             size={24}
             fill={feed.isLiked ? "#FF8FA3" : "none"}
