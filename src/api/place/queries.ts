@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getPlaceRecommendations } from "./place";
+import { getPlaceRecommendations, togglePlaceLike } from "./place";
 import type { IPlaceRecommendationResponse } from "./type";
 
 export const placeQueries = {
@@ -10,4 +10,10 @@ export const placeQueries = {
       queryKey: [...placeQueries.all(), "getPlaceRecommendations", groupId],
       queryFn: () => getPlaceRecommendations(groupId),
     }),
+
+  togglePlaceLike: () => ({
+    mutationKey: [...placeQueries.all(), "togglePlaceLike"],
+    mutationFn: ({ placeId, isLiked }: { placeId: number; isLiked: boolean }) =>
+      togglePlaceLike(placeId, isLiked),
+  }),
 };

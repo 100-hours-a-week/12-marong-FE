@@ -9,7 +9,19 @@ import PlaceCard from "@/components/pages/recommnedation/PlaceCard";
 import FloatingButton from "./FloatingAddButton";
 import { Locate } from "lucide-react";
 
-const KakaoMap = ({ places }: { places: IPlace[] }) => {
+const KakaoMap = ({
+  places,
+  togglePlaceLike,
+}: {
+  places: IPlace[];
+  togglePlaceLike: ({
+    placeId,
+    isLiked,
+  }: {
+    placeId: number;
+    isLiked: boolean;
+  }) => void;
+}) => {
   const { location, getCurrentLocation } = useLocation();
   const [state, setState] = useState({
     center: {
@@ -47,6 +59,7 @@ const KakaoMap = ({ places }: { places: IPlace[] }) => {
           <PlaceCard
             place={places[0]}
             onClick={() => onSelectPlace(places[0])}
+            togglePlaceLike={togglePlaceLike}
           />
         )}
 
@@ -54,6 +67,7 @@ const KakaoMap = ({ places }: { places: IPlace[] }) => {
           <PlaceCard
             place={places[1]}
             onClick={() => onSelectPlace(places[1])}
+            togglePlaceLike={togglePlaceLike}
           />
         )}
       </div>

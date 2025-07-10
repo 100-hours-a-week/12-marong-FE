@@ -9,3 +9,11 @@ export const getPlaceRecommendations = async (groupId: number) => {
 
   return response.data.data;
 };
+
+export const togglePlaceLike = async (placeId: number, isLiked: boolean) => {
+  const response = await api.post(`recommendations/places/${placeId}/likes`, {
+    cancel: isLiked,
+  });
+
+  return response.data.data;
+};

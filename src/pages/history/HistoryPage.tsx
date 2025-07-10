@@ -14,12 +14,6 @@ function HistoryPage() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
-
   return (
     <div className="flex flex-col flex-1 p-4 gap-4">
       <Label className="text-xl font-bold">나의 MBTI 기록</Label>
