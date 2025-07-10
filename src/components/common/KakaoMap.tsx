@@ -8,6 +8,7 @@ import restaurantMarker from "@/assets/restaurantMarker.svg";
 import PlaceCard from "@/components/pages/recommnedation/PlaceCard";
 import FloatingButton from "./FloatingAddButton";
 import { Locate } from "lucide-react";
+import { Label } from "../ui/label";
 
 const KakaoMap = ({
   places,
@@ -54,6 +55,13 @@ const KakaoMap = ({
 
   return (
     <>
+      <div className="flex flex-col flex-0 gap-2 px-4 pt-4">
+        <Label className="text-lg font-bold">장소 추천</Label>
+        <Label className="text-sm text-gray-500">
+          마음에 드는 장소에 좋아요 버튼 눌러보세요.
+        </Label>
+      </div>
+
       <div className="flex flex-row flex-0">
         {places.length !== 0 && (
           <PlaceCard
