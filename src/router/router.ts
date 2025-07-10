@@ -8,6 +8,7 @@ import ProfilePage from "@/pages/profile/ProfilePage";
 import LoginPage from "@/pages/login/LoginPage";
 import SurveyPage from "@/pages/survey/SurveyPage";
 import FeedCreatePage from "@/pages/feed/FeedCreate";
+import HistoryPage from "@/pages/history/HistoryPage";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "/manitto",
         Component: ManittoPage,
+      },
+      {
+        path: "/history",
+        Component: HistoryPage,
       },
       {
         path: "/recommend",
