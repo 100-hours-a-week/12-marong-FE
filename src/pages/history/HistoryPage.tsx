@@ -10,17 +10,23 @@ import { useNavigate } from "react-router-dom";
 
 function HistoryPage() {
   const { data, isLoading, isError, fetchNextPage, hasNextPage } =
-    useInfiniteQuery(historyQueries.getHistory());
+    useInfiniteQuery({
+      ...historyQueries.getHistory(),
+      staleTime: 1000 * 60 * 10,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+    });
 
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col flex-1 p-4 gap-4">
+    <div className="flex flex-col flex-1 gap-4 p-4">
       <Label className="text-xl font-bold">나의 MBTI 기록</Label>
 
       {!isLoading &&
         (!data || data.pages.flatMap((page) => page.posts).length === 0) && (
-          <div className="text-center flex-1 py-10 text-lg font-semibold flex flex-col items-center gap-4 justify-center">
+          <div className="flex flex-col flex-1 gap-4 justify-center items-center py-10 text-lg font-semibold text-center">
             아직 작성된 게시글이 없습니다.
             <br />첫 번째 기록을 남겨보세요!
             <Button
